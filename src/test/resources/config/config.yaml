@@ -1,0 +1,13 @@
+api:
+  base_url: "https://qa.instulearn.com"
+  adminEmail : "dilan.admin@instulearn.com"
+  adminPassword : "Learn.2504"
+  unauthorizedExceptionMessage: "status code: 401, reason phrase: Unauthorized"
+  invalidToken: "invalid"
+
+database:
+  host: "localhost"
+  port: 3306
+  URL:
+  USERNAME:
+  PASSWORD:
