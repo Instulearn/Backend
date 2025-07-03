@@ -8,14 +8,17 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.junit.Assert;
+import pojos.AddCategoryPojo;
 import utilities.API_Utilities.API_Methods;
 import utilities.API_Utilities.TestData;
 
 import java.util.HashMap;
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
 
-public class API_Stepdefinitions  {
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
+
+public class API_Stepdefinitions {
 
     Response response;
     JsonPath jsonPath;
@@ -24,6 +27,7 @@ public class API_Stepdefinitions  {
     JSONObject jsonObjectBody = new JSONObject();
     HashMap<String, Object> hashMapBody = new HashMap<>();
     TestData testData = new TestData();
+    AddCategoryPojo addCategoryPojoRequest;
 
     @Given("The api user constructs the base url with the {string} token.")
     public void the_api_user_constructs_the_base_url_with_the_token(String userType) {
@@ -94,8 +98,10 @@ public class API_Stepdefinitions  {
 
     @Given("The api user prepares a post request body to send to the api addCategory endpoint.")
     public void the_api_user_prepares_a_post_request_body_to_send_to_the_api_add_category_endpoint() {
-        jsonObjectBody.put("title", "Online Education");
-        System.out.println("Post Body : " + jsonObjectBody);
+        //jsonObjectBody.put("title", "Online Education");
+
+        addCategoryPojoRequest = new AddCategoryPojo("Online Education");
+        System.out.println("Post Body : " + addCategoryPojoRequest);
     }
 
     @Given("The api user sends a POST request and saves the returned response.")
@@ -104,7 +110,7 @@ public class API_Stepdefinitions  {
                 .spec(HooksAPI.spec)
                 .contentType(ContentType.JSON)
                 .when()
-                .body(jsonObjectBody.toString())
+                .body(addCategoryPojoRequest)
                 .post(API_Methods.fullPath);
 
         response.prettyPrint();
@@ -139,6 +145,39 @@ public class API_Stepdefinitions  {
         Assert.assertEquals(dataKey, API_Methods.id);
     }
 
+    @Given("The api user sends a PATCH request, saves the returned response, and verifies that the status code is {string} with the reason phrase Unauthorized.")
+    public void the_api_user_sends_a_patch_request_saves_the_returned_response_and_verifies_that_the_status_code_is_with_the_reason_phrase_unauthorized(String string) {
+        Assert.assertEquals(configLoader.getApiConfig("unauthorizedExceptionMessage"), API_Methods.tryCatchRequest("PATCH", hashMapBody));
 
+    }
 
+    @Given("The api user verifies that the title information is {string}")
+    public void the_api_user_verifies_that_the_title_information_is(String titleValue) {
+        response.then()
+                .assertThat()
+                .body("data.translations[0].title", equalTo(titleValue));
+    }
+
+    @Given("The api user sends a DELETE request and saves the returned response.")
+    public void the_api_user_sends_a_delete_request_and_saves_the_returned_response() {
+        response = given()
+                .spec(HooksAPI.spec)
+                .when()
+                .delete(API_Methods.fullPath);
+
+        response.prettyPrint();
+    }
+
+    @Given("The api user verifies that the {string} in the response body is the same as the id path parameter in the endpoint.")
+    public void the_api_user_verifies_that_the_in_the_response_body_is_the_same_as_the_id_path_parameter_in_the_endpoint(String key) {
+        hashMapBody = response.as(HashMap.class);
+        String dataKey = (String) hashMapBody.get(key);
+        String endpointKey = String.valueOf(API_Methods.id);
+        Assert.assertEquals(dataKey, endpointKey);
+    }
+
+    @Given("The api user sends a DELETE request, saves the returned response, and verifies that the status code is {string} with the reason phrase Unauthorized.")
+    public void the_api_user_sends_a_delete_request_saves_the_returned_response_and_verifies_that_the_status_code_is_with_the_reason_phrase_unauthorized(String string) {
+        Assert.assertEquals(configLoader.getApiConfig("unauthorizedExceptionMessage"), API_Methods.tryCatchRequest("DELETE", null));
+    }
 }
