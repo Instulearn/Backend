@@ -28,7 +28,7 @@ Feature: As an administrator I want to be able to access courses via API connect
 
     * The api user constructs the base url with the "invalid" token.
     # Api kullanicisi "invalid" token ile base urli olusturur
-    * The api user sets "api/courses" path parameters.
+    * The api user sets "api/productCategories" path parameters.
     # Api kullanicisi "api/courses" path parametrelerini olusturur
     * The api user sends a GET request and saves the returned response.
     # Api kullanicisi GET request gonderir ve donen responsei kaydeder
