@@ -1,14 +1,14 @@
-Feature: As an administrator I want to be able to access courses via API connection.
+Feature: As an administrator I want to be able to access product categories via API connection.
 
 
-  Scenario Outline: When a GET request is sent to the /api/courses endpoint with valid authorization,
-  the response status code should be 200, the remark should be “success”, and the information (teacher_id, creator_id,
-  category_id, type, private, slug, start_date, duration, timezone) of id(x) in the response body should be verified.
+  Scenario Outline: When a GET request is sent to the /api/productCategories endpoint with valid authorization,
+  the response status code should be 200, the remark should be “success”, and the information (parent_id, icon, order,
+  title, id, product_category_id, locale, title) in the response body of id(x) should be validated.
 
     * The api user constructs the base url with the "admin" token.
     # Api kullanicisi "admin" token ile base urli olusturur
     * The api user sets "api/productCategories" path parameters.
-    # Api kullanicisi "api/courses" path parametrelerini olusturur
+    # Api kullanicisi "api/productCategories" path parametrelerini olusturur
     * The api user sends a GET request and saves the returned response.
     # Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * The api user verifies that the status code is 200.
@@ -22,14 +22,14 @@ Feature: As an administrator I want to be able to access courses via API connect
       | null      | /store/1/default_images/categories_icons/code.png | null  | null   | 66 | 66                  | en     | Educational Equipment |  0        |
 
 
-  Scenario: When a GET request is sent to the /api/courses endpoint with invalid (invalid token) authorization credentials,
+  Scenario: When a GET request is sent to the /api/productCategories endpoint with invalid (invalid token) authorization credentials,
   it should return a 401 status code. Additionally, it should be verified that the message field in the response body is
   "Unauthenticated."
 
     * The api user constructs the base url with the "invalid" token.
     # Api kullanicisi "invalid" token ile base urli olusturur
     * The api user sets "api/productCategories" path parameters.
-    # Api kullanicisi "api/courses" path parametrelerini olusturur
+    # Api kullanicisi "api/productCategories" path parametrelerini olusturur
     * The api user sends a GET request and saves the returned response.
     # Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * The api user verifies that the status code is 401.
@@ -39,5 +39,3 @@ Feature: As an administrator I want to be able to access courses via API connect
 
     #* The api user sends a GET request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized.
     # Api kullanicisi GET request gonderir, donen responsei kaydeder, status codeun '401' ve reason phrase bilgisinin Unauthorized oldugunu dogrular
-
-
