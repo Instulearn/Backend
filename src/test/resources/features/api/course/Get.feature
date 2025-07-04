@@ -23,9 +23,6 @@ Feature: As an administrator I want to be able to access courses via API connect
 
 
 
-
-
-
   Scenario: When a GET request is sent to the /api/courses endpoint with invalid (invalid token) authorization credentials,
   it should return a 401 status code. Additionally, it should be verified that the message field in the response body is
   "Unauthenticated."
