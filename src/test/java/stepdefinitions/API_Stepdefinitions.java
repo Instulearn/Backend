@@ -2,7 +2,7 @@ package stepdefinitions;
 
 import config_Requirements.ConfigLoader;
 import hooks.HooksAPI;
-import io.cucumber.java.en.Given;
+import io.cucumber.java.en.*;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
