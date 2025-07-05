@@ -100,7 +100,7 @@ public class API_Stepdefinitions {
     public void the_api_user_prepares_a_post_request_body_to_send_to_the_api_add_category_endpoint() {
         //jsonObjectBody.put("title", "Online Education");
 
-        addCategoryPojoRequest = new AddCategoryPojo("Online Education");
+        addCategoryPojoRequest = new AddCategoryPojo();
         System.out.println("Post Body : " + addCategoryPojoRequest);
     }
 
