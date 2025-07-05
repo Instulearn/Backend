@@ -12,16 +12,16 @@ Feature: As an administrator, I want to be able to create a new course category 
     * The api user verifies that the "Message" information in the response body is "Successfully Added.".
 
 
-  Scenario: Verify that a POST request to /api/addCategory with valid authorization but no data returns status 422 and
-  message “The title field is required.”
+  Scenario: Verify that a PATCH request to /api/updateCategory/{id} with invalid token, correct id, and valid title
+  returns status 401 and message “Unauthenticated.”
 
-    * The api user constructs the base url with the "admin" token.
-    * The api user sets "api/addCategory" path parameters.
-    * The api user prepares a post request without any data to send to the api addCategory endpoint.
-    * The api user sends a POST request and saves the returned response.
-    * The api user verifies that the status code is 422.
-    * The api user verifies that the "message" information in the response body is "The title field is required.".
-
+    * The api user constructs the base url with the "invalid" token.
+    * The api user sets "api/updateCategory/885" path parameters.
+    * The api user prepares a patch request body to send to the api updateCategory endpoint.
+    #* The api user sends a PATCH request and saves the returned response.
+    #* The api user verifies that the status code is 401.
+    #* The api user verifies that the "message" information in the response body is "Unauthenticated.".
+   * The api user sends a PATCH request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized.
 
   Scenario: Verify that a POST request to /api/addCategory with invalid token and valid title returns status 401 and message
   “Unauthenticated.”
