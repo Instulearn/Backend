@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
         glue = {"stepdefinitions","hooks","utilities"},
         monochrome = true,
         tags = "@API",
-        dryRun =true
+        dryRun =false
 
 
 
