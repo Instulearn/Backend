@@ -28,11 +28,13 @@ public class BlogCategories_Stepdefinitions {
 
     @Given("Api kullanicisi {string} token ile base urli olusturur")
     public void api_kullanicisi_token_ile_base_urli_olusturur(String userType) {
+
         HooksAPI.setUpApi(userType);
     }
 
     @Given("Api kullanicisi {string} path parametrelerini olusturur")
     public void api_kullanicisi_path_parametrelerini_olusturur(String pathParam) {
+
         API_Methods.pathParam(pathParam);
     }
 
@@ -118,15 +120,17 @@ public class BlogCategories_Stepdefinitions {
 
     @Given("Api kullanıcısı {string} token ile base urli oluşturur")
     public void api_kullanıcısı_token_ile_base_urli_oluşturur(String userType1) {
+
         HooksAPI.setUpApi(userType1);
     }
     @Given("Api kullanıcısı {string} path parametrelerini oluşturur")
     public void api_kullanıcısı_path_parametrelerini_oluşturur(String pathParam1) {
+
         API_Methods.pathParam(pathParam1);
     }
     @Given("Api kullanıcısı addBlogCategory endpoint’ine gönderilmek üzere geçerli bir post request body hazırlar")
     public void api_kullanıcısı_add_blog_category_endpoint_ine_gönderilmek_üzere_geçerli_bir_post_request_body_hazırlar() {
-        requestBody.put("title", "Deneme123");
+        requestBody.put("title", "Deneme1234");
     }
     @Given("Api kullanıcısı POST request gönderir ve dönen response’ı kaydeder")
     public void api_kullanıcısı_post_request_gönderir_ve_dönen_response_ı_kaydeder() {

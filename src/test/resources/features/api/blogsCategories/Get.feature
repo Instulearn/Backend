@@ -1,5 +1,6 @@
 Feature: Bir yönetici olarak API bağlantısı üzerinden blog categories'e erişebilmek istiyorum.
 
+
   Scenario Outline:Geçerli yetkilendirme ve doğru id ile /api/category/{id} endpoint’ine bir GET request gönderildiğinde,
   dönen response status kodunun 200, remark bilgisinin "success" olması ve response body’deki verilerin (title, slug, blog_count) doğruluğu doğrulanmalıdır.
 
