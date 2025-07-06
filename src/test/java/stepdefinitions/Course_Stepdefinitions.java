@@ -36,6 +36,8 @@ public class Course_Stepdefinitions {
                 .when()
                 .get(API_Methods.fullPath);
 
+        response.prettyPrint();
+
         jsonPath = response.jsonPath();
 
         Assert.assertEquals(teacher_id, jsonPath.getInt("AddedCourseID.webinars[" + dataIndex + "].teacher_id"));
