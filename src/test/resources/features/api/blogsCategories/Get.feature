@@ -1,3 +1,4 @@
+@blogCategories
 Feature: Bir yönetici olarak API bağlantısı üzerinden blog categories'e erişebilmek istiyorum.
 
 
@@ -10,11 +11,11 @@ Feature: Bir yönetici olarak API bağlantısı üzerinden blog categories'e eri
     * Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * Api kullanicisi status codeun 200 oldugunu dogrular
     * Api kullanicisi response bodydeki "remark" bilgisinin "success" oldugunu dogrular
-    * Api kullanicisi response bodydeki dataların "<data>", "<pageTitle>", "<blogCategories>", <id>,"<title>","<slug>", <blog_count> içeriklerini doğrular.
+    * Api kullanicisi response bodydeki dataların  "<pageTitle>", "<blogCategories>", <id>,"<title>","<slug>", <blog_count> <dataIndex> içeriklerini doğrular.
 
     Examples:
-      | data     | pageTitle       | blogCategories | id | title | slug | blog_count |
-      | not null | Blog Categories | not empty      | 34 | Blog  | blog | 50         |
+      | dataIndex | pageTitle       | blogCategories | id | title | slug | blog_count |
+      | 0         | Blog Categories | not empty      | 34 | Blog  | blog | 50         |
 
 
   Scenario: Geçersiz (invalid token) authorization bilgileri ile /api/categories endpoint’ine bir GET request gönderildiğinde,
