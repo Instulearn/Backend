@@ -14,6 +14,8 @@ import utilities.API_Utilities.TestData;
 import java.util.HashMap;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
 
 
 public class Course_Stepdefinitions {
@@ -49,6 +51,30 @@ public class Course_Stepdefinitions {
         Assert.assertEquals(duration, jsonPath.getInt("AddedCourseID.webinars[" + dataIndex + "].duration"));
         Assert.assertEquals(timezone, jsonPath.getString("AddedCourseID.webinars[" + dataIndex + "].timezone"));
         Assert.assertNull(jsonPath.get("AddedCourseID.webinars[" + dataIndex + "].start_date"));
+    }
+
+    @Given("The api user verifies the {int}, {int}, {int}, {int}, {string}, {int}, {string}, {int}, {string} contents in the response body data.")
+    public void the_api_user_verifies_the_contents_in_the_response_body_data(int id, int teacher_id, int creator_id, int category_id, String type, int isprivate, String slug, int duration, String timezone) {
+
+        HooksAPI.setUpApi("admin");
+        API_Methods.pathParam("api/course/"+id);
+        response = given()
+                .spec(HooksAPI.spec)
+                .when()
+                .get(API_Methods.fullPath);
+
+        response.then()
+                .assertThat()
+                .body("data.id", equalTo(id),
+                        "data.teacher_id", equalTo(teacher_id),
+                        "data.creator_id", equalTo(creator_id),
+                        "data.category_id", equalTo(category_id),
+                        "data.type", equalTo(type),
+                        "data.private", equalTo(isprivate),
+                        "data.slug", equalTo(slug),
+                        "data.duration", equalTo(duration),
+                        "data.timezone", equalTo(timezone),
+                        "data.start_date", nullValue());
     }
 
 
