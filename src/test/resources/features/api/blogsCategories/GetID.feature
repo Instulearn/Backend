@@ -1,3 +1,4 @@
+@blogCategories
 Feature: Bir yönetici olarak API bağlantısı üzerinden belirtilen id numarasına sahip blog category'nin detaylı bilgilerine erişebilmeliyim.
 
   Scenario Outline: Geçerli authorization ve doğru id ile /api/blogCategory/{id} endpoint’ine bir GET request gönderildiğinde,
