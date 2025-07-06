@@ -8,8 +8,12 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.junit.Assert;
+import pojos.Coupons_PatchPojo;
 import pojos.Coupons_PostPojo;
 import utilities.API_Utilities.API_Methods;
+
+import java.util.HashMap;
+
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
 
@@ -20,8 +24,9 @@ public class Coupons_Stepdefinitions {
     String payload;
     ObjectMapper mapper = new ObjectMapper();
     Coupons_PostPojo payloadBody;
-    Coupons_PostPojo couponsPojo = new Coupons_PostPojo();
-
+    Coupons_PatchPojo payloadBody2;
+    String generatedCode;
+    int id;
 
     //*********************************************** GET METHODS **********************************************
 
@@ -103,7 +108,7 @@ public class Coupons_Stepdefinitions {
 
     @Given("Api kullanıcısı addCoupon endpoint’ine gönderilmek üzere geçerli bir post request body hazırlar.")
     public void api_kullanıcısı_add_coupon_endpoint_ine_gönderilmek_üzere_geçerli_bir_post_request_body_hazırlar() throws JsonProcessingException {
-        String dynamicCode = "TST" + System.currentTimeMillis();
+         generatedCode = "TST" + System.currentTimeMillis();
 
         payload = """
             {
@@ -119,7 +124,7 @@ public class Coupons_Stepdefinitions {
                 "product_type":"all",
                 "for_first_purchase":0,
                 "expired_at":"2025-12-31"
-            }""".formatted(dynamicCode);
+            }""".formatted(generatedCode);
 
         payloadBody = mapper.readValue(payload, Coupons_PostPojo.class);
     }
@@ -143,6 +148,7 @@ public class Coupons_Stepdefinitions {
         response.then().statusCode(code);
 
     }
+
     @Given("Api kullanıcısı response body’deki {string} bilgisinin {string} olduğunu doğrular.")
     public void api_kullanıcısı_response_body_deki_bilgisinin_olduğunu_doğrular(String key, String expectedValue) {
         json = response.jsonPath();
@@ -152,9 +158,61 @@ public class Coupons_Stepdefinitions {
 
     @Given("Api kullanıcısı daha önce kullanılmış bir code ile post request body hazırlar")
     public void api_kullanıcısı_daha_önce_kullanılmış_bir_code_ile_post_request_body_hazırlar() throws JsonProcessingException {
+        String reusedPayload = """
+        {
+            "title":"Test Coupon Duplicate",
+            "discount_type":"percentage",
+            "source":"course",
+            "code":"%s",
+            "percent":15,
+            "amount":10,
+            "max_amount":200,
+            "minimum_order":1,
+            "count":50,
+            "product_type":"all",
+            "for_first_purchase":0,
+            "expired_at":"2025-12-31"
+        }""".formatted(generatedCode);
 
-        payloadBody = mapper.readValue(payload, Coupons_PostPojo.class);
+        payloadBody = mapper.readValue(reusedPayload, Coupons_PostPojo.class);
+    }
+
+    //******************************************** PATCH METHODS **********************************************
+    @Given("Api kullanicisi api updateCoupon endpointine gondermek icin bir patch request body hazirlar")
+    public void api_kullanicisi_api_update_coupon_endpointine_gondermek_icin_bir_patch_request_body_hazirlar() throws JsonProcessingException {
+
+        payload = """
+                {
+                "title":"My Coupon Updated",
+                "discount_type":"percentage",
+                "source":"course",
+                "percent":5,
+                "amount":10,
+                "max_amount":200,
+                "minimum_order":1,
+                "count":50,
+                "product_type":"all",
+                "for_first_purchase":0
+                }""";
+
+        payloadBody2 = mapper.readValue(payload, Coupons_PatchPojo.class);
 
     }
 
-}
+
+    @Given("Api kullanicisi PATCH request gonderir ve donen responsei kaydeder")
+    public void api_kullanicisi_patch_request_gonderir_ve_donen_responsei_kaydeder() {
+
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(payloadBody2)
+                .patch(API_Methods.fullPath);
+
+        response.prettyPrint();
+
+    }
+
+
+    }
