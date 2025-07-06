@@ -1,8 +1,6 @@
 package stepdefinitions;
 
 import hooks.HooksAPI;
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.core.internal.com.fasterxml.jackson.core.JsonProcessingException;
 import io.cucumber.core.internal.com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.*;
@@ -22,6 +20,7 @@ public class Coupons_Stepdefinitions {
     String payload;
     ObjectMapper mapper = new ObjectMapper();
     Coupons_PostPojo payloadBody;
+    Coupons_PostPojo couponsPojo = new Coupons_PostPojo();
 
 
     //*********************************************** GET METHODS **********************************************
@@ -102,18 +101,8 @@ public class Coupons_Stepdefinitions {
 
     //******************************************+*****POST METHODS****************************************************
 
-    @Given("Api kullanıcısı {string} token ile base urli oluşturur.")
-    public void api_kullanıcısı_token_ile_base_urli_oluşturur(String userType1) {
-
-        HooksAPI.setUpApi(userType1);
-    }
-    @Given("Api kullanıcısı {string} path parametrelerini oluşturur.")
-    public void api_kullanıcısı_path_parametrelerini_oluşturur(String pathParam1) {
-        API_Methods.pathParam(pathParam1);
-    }
     @Given("Api kullanıcısı addCoupon endpoint’ine gönderilmek üzere geçerli bir post request body hazırlar.")
     public void api_kullanıcısı_add_coupon_endpoint_ine_gönderilmek_üzere_geçerli_bir_post_request_body_hazırlar() throws JsonProcessingException {
-        Coupons_PostPojo couponsPojo = new Coupons_PostPojo();
         String dynamicCode = "TST" + System.currentTimeMillis();
 
         payload = """
@@ -153,13 +142,19 @@ public class Coupons_Stepdefinitions {
     public void api_kullanıcısı_status_code_un_olduğunu_doğrular(Integer code) {
         response.then().statusCode(code);
 
-
     }
     @Given("Api kullanıcısı response body’deki {string} bilgisinin {string} olduğunu doğrular.")
     public void api_kullanıcısı_response_body_deki_bilgisinin_olduğunu_doğrular(String key, String expectedValue) {
         json = response.jsonPath();
         String actualValue = json.getString(key);
         Assert.assertEquals(expectedValue, actualValue);
+    }
+
+    @Given("Api kullanıcısı daha önce kullanılmış bir code ile post request body hazırlar")
+    public void api_kullanıcısı_daha_önce_kullanılmış_bir_code_ile_post_request_body_hazırlar() throws JsonProcessingException {
+
+        payloadBody = mapper.readValue(payload, Coupons_PostPojo.class);
+
     }
 
 }
