@@ -9,9 +9,9 @@ The specific product information returned in the response body must be verified.
     # Api kullanicisi "admin" token ile base urli olusturur
     * The api user sets "api/addProduct" path parameters.
     # Api kullanicisi "api/addProduct" path parametrelerini olusturur
-    * Api kullanıcısı addProduct endpoint'ine gönderilmek üzere geçerli bir post request body hazırlar.
+    * The api user prepares a valid post request body to be sent to the addProduct endpoint.
     # Api kullanicisi addProduct endpoint'ine gönderilmek üzere geçerli bir post request body hazırlar
-    * Api kullanıcısı POST request gönderir ve dönen response'ı kaydeder.
+    * The api user sends a product POST request and saves the returned response.
     # Api kullanicisi POST request gönderir ve dönen response'ı kaydeder
     * The api user verifies that the product status code is 200.
     # Api kullanicisi status code'un 200 oldugunu doğrular
@@ -35,9 +35,9 @@ it should be verified that the status code returned is 401 and the remark in the
     # Api kullanicisi "invalid" token ile base urli olusturur
     * The api user sets "api/addProduct" path parameters.
     # Api kullanicisi "api/addProduct" path parametrelerini olusturur
-    * Api kullanıcısı addProduct endpoint'ine gönderilmek üzere geçerli bir post request body hazırlar.
+    * The api user prepares a valid post request body to be sent to the addProduct endpoint.
     # Api kullanicisi addProduct endpoint'ine gönderilmek üzere geçerli bir post request body hazırlar
-    * Api kullanıcısı POST request gönderir ve dönen response'ı kaydeder.
+    * The api user sends a product POST request and saves the returned response.
     # Api kullanicisi POST request gönderir ve dönen response'ı kaydeder
     * The api user verifies that the product status code is 401.
     # Api kullanicisi status code'un 401 oldugunu doğrular
@@ -51,9 +51,9 @@ it should be verified that the status code returned is 422 and the message in th
     # Api kullanicisi "admin" token ile base urli olusturur
     * The api user sets "api/addProduct" path parameters.
     # Api kullanicisi "api/addProduct" path parametrelerini olusturur
-    * Api kullanıcısı product title içermeyen bir post request body hazırlar
+    * The api user prepares a post request body without product title
     # Api kullanicisi product title içermeyen bir post request body hazırlar
-    * Api kullanıcısı POST request gönderir ve dönen response'ı kaydeder.
+    * The api user sends a product POST request and saves the returned response.
     # Api kullanicisi POST request gönderir ve dönen response'ı kaydeder
     * The api user verifies that the product status code is 422.
     # Api kullanicisi status code'un 422 oldugunu doğrular
@@ -67,9 +67,9 @@ it should be verified that the status code returned is 500 and the response cont
     # Api kullanicisi "admin" token ile base urli olusturur
     * The api user sets "api/addProduct" path parameters.
     # Api kullanicisi "api/addProduct" path parametrelerini olusturur
-    * Api kullanıcısı invalid category_id ile post request body hazırlar
+    * The api user prepares a post request body with invalid category_id
     # Api kullanicisi invalid category_id ile post request body hazırlar
-    * Api kullanıcısı POST request gönderir ve dönen response'ı kaydeder.
+    * The api user sends a product POST request and saves the returned response.
     # Api kullanicisi POST request gönderir ve dönen response'ı kaydeder
     * The api user verifies that the product status code is 500.
     # Api kullanicisi status code'un 500 oldugunu doğrular
@@ -79,9 +79,9 @@ Scenario: Product ekleme ve Added Product ID ile verification testi
     # Api kullanicisi "admin" token ile base urli olusturur
     * The api user sets "api/addProduct" path parameters.
     # Api kullanicisi "api/addProduct" path parametrelerini olusturur
-    * Api kullanıcısı addProduct endpoint'ine gönderilmek üzere geçerli bir post request body hazırlar.
+    * The api user prepares a valid post request body to be sent to the addProduct endpoint.
     # Api kullanicisi addProduct endpoint'ine gönderilmek üzere geçerli bir post request body hazırlar
-    * Api kullanıcısı POST request gönderir ve dönen response'ı kaydeder.
+    * The api user sends a product POST request and saves the returned response.
     # Api kullanicisi POST request gönderir ve dönen response'ı kaydeder
     * The api user verifies that the product status code is 200.
     # Api kullanicisi status codeun 200 oldugunu dogrular
@@ -91,5 +91,5 @@ Scenario: Product ekleme ve Added Product ID ile verification testi
     # Api kullanicisi response bodydeki Message bilgisinin 'Successfully Added.' oldugunu dogrular
     * The api user verifies that the post response "Added Product ID" and "Added Product Title" information exists.
     # Api kullanicisi response bodydeki Added Product ID ve Added Product Title bilgilerinin mevcut oldugunu dogrular
-    * Api kullanicisi Added Product ID ile GET request gonderip kaydin olusturuldugunu dogrular
+    * The api user sends a GET request with the Added Product ID and verifies that the record is created.
     # Api kullanicisi Added Product ID ile GET request gonderip kaydin olusturuldugunu dogrular
