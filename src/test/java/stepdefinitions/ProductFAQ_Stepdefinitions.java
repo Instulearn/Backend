@@ -4,6 +4,7 @@ import config_Requirements.ConfigLoader;
 import hooks.HooksAPI;
 
 import io.cucumber.java.en.Given;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
@@ -98,9 +99,52 @@ public class ProductFAQ_Stepdefinitions {
                 "data.translations[0].title", equalTo(translations_title),
                 "data.translations[0].answer", equalTo(translations_answer));
 
+    }
+
+    @Given("The api user prepares a post request body to send to the api addCategory endpoint for productFAQ.")
+    public void the_api_user_prepares_a_post_request_body_to_send_to_the_api_add_category_endpoint_for_product_faq() {
+        jsonObjectBody.put("title", "What payment methods do you accept for online purchases?");
+        jsonObjectBody.put("answer", "We accept major credit cards such as Visa, Mastercard, and American Express, as well as PayPal for online purchases.");
+        jsonObjectBody.put("product_id", 10);
+        System.out.println("Post Body:" + jsonObjectBody);
 
 
     }
+    @Given("The api user sends a POST request and saves the returned response for productFAQ.")
+    public void the_api_user_sends_a_post_request_and_saves_the_returned_response_for_product_faq() {
+
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(jsonObjectBody.toString())
+                .post(API_Methods.fullPath);
+
+        response.prettyPrint();
+
+    }
+
+    @Given("The api user verifies that the status code is {int} for productFAQ.")
+    public void the_api_user_verifies_that_the_status_code_is_for_product_faq(int code) {
+        response.then()
+                .assertThat()
+                .statusCode(code);
+    }
+
+    @Given("The api user verifies that the {string} information in the response body is {string} for productFAQ.")
+    public void the_api_user_verifies_that_the_information_in_the_response_body_is_for_product_faq(String key, String value) {
+        response.then()
+                .assertThat()
+                .body(key, equalTo(value));
+    }
+
+    @Given("The api user prepares a post request without any data to send to the api addCategory endpoint for productFAQ.")
+    public void the_api_user_prepares_a_post_request_without_any_data_to_send_to_the_api_add_category_endpoint_for_product_faq() {
+
+    }
+
+
+
 
 
 }
