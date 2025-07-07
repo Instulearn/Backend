@@ -7,8 +7,8 @@ The specific product information returned in the response body must be verified.
 
     * The api user constructs the base url with the "admin" token.
     # Api kullanicisi "admin" token ile base urli olusturur
-    * The api user sets "api/product/1" path parameters.
-    # Api kullanicisi "api/product/1" path parametrelerini olusturur
+    * The api user sets "api/product/5" path parameters.
+    # Api kullanicisi "api/product/5" path parametrelerini olusturur
     * The api user sends a GET request and saves the returned response.
     # Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * The api user verifies that the status code is 200.
@@ -47,6 +47,8 @@ The specific product information returned in the response body must be verified.
     # Api kullanicisi response bodydeki summary bilgisinin mevcut oldugunu dogrular
     * The api user verifies that the "description" information in the response body exists.
     # Api kullanicisi response bodydeki description bilgisinin mevcut oldugunu dogrular
+    * The api user verifies the contents of the translations list data in the response body
+    # Api kullanicisi response bodydeki translations list datalarinin iceriklerini dogrular
 
 @API
 Scenario: When a GET request is sent to the /api/product/{id} endpoint with invalid token authorization information,
@@ -55,16 +57,16 @@ it should be verified that the status code returned is 401 and the message infor
 
     * The api user constructs the base url with the "invalid" token.
     # Api kullanicisi "invalid" token ile base urli olusturur
-    * The api user sets "api/product/1" path parameters.
-    # Api kullanicisi "api/product/1" path parametrelerini olusturur
+    * The api user sets "api/product/5" path parameters.
+    # Api kullanicisi "api/product/5" path parametrelerini olusturur
     * The api user sends a GET request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized.
     # Api kullanicisi GET request gonderir, donen responsei kaydeder, status codeun '401' ve reason phrase bilgisinin Unauthorized oldugunu dogrular
 
 Scenario: Geçerli token ve geçerli ID ile product detayı ve translations bilgileri alma
     * The api user constructs the base url with the "admin" token.
     # Api kullanicisi "admin" token ile base urli olusturur
-    * The api user sets "api/product/1" path parameters.
-    # Api kullanicisi "api/product/1" path parametrelerini olusturur
+    * The api user sets "api/product/5" path parameters.
+    # Api kullanicisi "api/product/5" path parametrelerini olusturur
     * The api user sends a GET request and saves the returned response.
     # Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * The api user verifies that the status code is 200.
@@ -103,7 +105,7 @@ Scenario: Geçerli token ve geçerli ID ile product detayı ve translations bilg
     # Api kullanicisi response bodydeki summary bilgisinin mevcut oldugunu dogrular
     * The api user verifies that the "description" information in the response body exists.
     # Api kullanicisi response bodydeki description bilgisinin mevcut oldugunu dogrular
-    * Api kullanicisi response bodydeki translations list datalarinin iceriklerini dogrular
+    * The api user verifies the contents of the translations list data in the response body
     # Api kullanicisi response bodydeki translations list datalarinin iceriklerini dogrular
 
 Scenario: Geçersiz ID ile request gönderme senaryosu
@@ -123,8 +125,8 @@ Scenario: Geçersiz ID ile request gönderme senaryosu
 Scenario: Geçersiz token ile request gönderme senaryosu
     * The api user constructs the base url with the "invalid" token.
     # Api kullanicisi "invalid" token ile base urli olusturur
-    * The api user sets "api/product/1" path parameters.
-    # Api kullanicisi "api/product/1" path parametrelerini olusturur
+    * The api user sets "api/product/5" path parameters.
+    # Api kullanicisi "api/product/5" path parametrelerini olusturur
     * The api user sends a GET request, saves the returned response, and verifies that the status code is '401' with the reason phrase Unauthorized.
     # Api kullanicisi GET request gonderir, donen responsei kaydeder, status codeun '401' ve reason phrase bilgisinin Unauthorized oldugunu dogrular
 
