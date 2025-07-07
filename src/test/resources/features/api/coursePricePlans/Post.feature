@@ -13,7 +13,8 @@ Feature: As an administrator I want to be able to create a new course price plan
     * The API user prepares a POST request body to send to the addPricePlan endpoint with the "title" "Api_training", "dateRange" "2025-07-07 - 2025-08-02", "discount" 10, "capacity" 150, and "webinar_id" 2050.
     # Api kullanicisi api addCategory endpointine gondermek icin title "Api_training", dateRange "2025-07-07 - 2025-08-02", discount 10, capacity 150 ve webinar_id 2010 olarak bir post request body hazirlar
     * The API user sends a POST request to coursplanprice and records the returned response.
-    # Api kullanicisi POST request gonderir ve donen responsei kaydeder
+    # Api kullanicisi POST request gonderir ve donen responsei kaydeder.
+    # Bu stepte kayıt edilen id, otomatik olarak son TC'de kullanılır. Birlikte çalıştırılmalıdır.
     * The API user verifies that the status code for courspriceplan is 200.
     # Api kullanicisi status codeun 200 oldugunu dogrular
     * API user verifies that the "remark" information in the response body for courspriceplan is "success".
