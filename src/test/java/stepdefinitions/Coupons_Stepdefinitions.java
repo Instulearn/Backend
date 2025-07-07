@@ -13,6 +13,7 @@ import pojos.Coupons_PostPojo;
 import utilities.API_Utilities.API_Methods;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.Assert.assertEquals;
@@ -26,7 +27,6 @@ public class Coupons_Stepdefinitions {
     Coupons_PostPojo payloadBody;
     Coupons_PatchPojo payloadBody2;
     String generatedCode;
-    int id;
 
     //*********************************************** GET METHODS **********************************************
 
@@ -211,6 +211,22 @@ public class Coupons_Stepdefinitions {
                 .patch(API_Methods.fullPath);
 
         response.prettyPrint();
+
+    }
+
+    @Given("Api kullanıcısı response body icindeki {string} bilgisinin endpointde yazan id path parametresi ile ayni oldugunu dogrular.")
+    public void api_kullanıcısı_response_body_icindeki_bilgisinin_endpointde_yazan_id_path_parametresi_ile_ayni_oldugunu_dogrular(String key) {
+        Map<String, Object> responseMap = response.as(Map.class);
+        int dataKey = (int)responseMap.get(key);
+        Assert.assertEquals(dataKey, API_Methods.id);
+    }
+
+    @Given("Api kullanicisi api updateCoupon endpointine gondermek icin bos bir patch request body hazirlar")
+    public void api_kullanicisi_api_update_coupon_endpointine_gondermek_icin_bos_bir_patch_request_body_hazirlar() {
+
+        Map<String,Object> patchMap = new HashMap<>();
+        patchMap.put("title","");
+        patchMap.put("discount_type","");
 
     }
 
