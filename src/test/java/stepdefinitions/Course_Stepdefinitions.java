@@ -4,10 +4,12 @@ import config_Requirements.ConfigLoader;
 import hooks.HooksAPI;
 import io.cucumber.java.en.Given;
 
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.junit.Assert;
+import pojos.Course_PostPojo;
 import utilities.API_Utilities.API_Methods;
 import utilities.API_Utilities.TestData;
 
@@ -22,6 +24,7 @@ public class Course_Stepdefinitions {
 
     Response response;
     JsonPath jsonPath;
+    Course_PostPojo coursePojoRequest;
     String exceptionMesaj;
     ConfigLoader configLoader = new ConfigLoader();
     JSONObject jsonObjectBody = new JSONObject();
@@ -77,5 +80,89 @@ public class Course_Stepdefinitions {
                         "data.start_date", nullValue());
     }
 
+    @Given("The api user prepares a post request body to send to the api addCourse endpoint.")
+    public void prepare_post_request_body_for_add_course() {
+
+        coursePojoRequest = new Course_PostPojo(
+                "Health And Fitness4",
+                "course",
+                "Health-And",
+                "1625081400",
+                60,
+                5,
+                20,
+                "desc",
+                870  );
+
+    }
+
+    @Given("The api user sends a POST request with {string} token and saves the returned response.")
+    public void the_api_user_sends_a_post_request_and_saves_the_returned_response(String token) {
+
+        HooksAPI.setUpApi(token);
+        API_Methods.pathParam("api/addCourse");
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(coursePojoRequest)
+                .post(API_Methods.fullPath);
+
+        response.prettyPrint();
+    }
+
+    @Given("The api user verifies that the status code is {int}")
+    public void the_api_user_verifies_that_the_status_code_is(int code) {
+        response.then()
+                .assertThat()
+                .statusCode(code);
+    }
+    @Given("The api user verifies that the {string} information in the response body is {string}")
+    public void the_api_user_verifies_that_the_information_in_the_response_body_is(String key, String value) {
+        response.then()
+                .assertThat()
+                .body(key, equalTo(value));
+    }
+
+    @Given("The api user prepares a post request body with missing data to send to the api addCourse endpoint.")
+    public void prepare_post_request_body_for_add_course_with_missing_data() {
+
+        coursePojoRequest = new Course_PostPojo(
+                "Health And Fitness4",
+                "course",
+                "Health-And",
+                "1625081400",
+                60,
+                5,
+                20,
+                "desc",
+                0  );
+
+    }
+
+    @Given("The api user prepares and posts request body with no data to send to the api addCourse endpoint.")
+    public void the_api_user_prepares_a_post_request_body_no_data_to_send_to_the_api_add_course_endpoint() {
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .when()
+                .post(API_Methods.fullPath);
+
+        response.prettyPrint();
+
+    }
+
+    @Given("The api user prepares a patch request body to send to the api updateCourse endpoint.")
+    public void the_api_user_prepares_a_patch_request_body_to_send_to_the_api_update_course_endpoint() {
+
+    }
+    @Given("The api user sends a PATCH request and saves the returned response")
+    public void the_api_user_sends_a_patch_request_and_saves_the_returned_response() {
+
+    }
+    @Given("The api user verifies that the {string} information in the response body is the same as the id path parameter in the endpoint")
+    public void the_api_user_verifies_that_the_information_in_the_response_body_is_the_same_as_the_id_path_parameter_in_the_endpoint(String string) {
+
+    }
 
 }
