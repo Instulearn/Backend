@@ -57,15 +57,15 @@ Feature: As an administrator, I should be able to access the detailed informatio
     * The api user verifies that the "data.message" information in the response body is "No id".
     # Api kullanicisi response bodydeki message bilgisinin "No id" oldugunu dogrular
 
-  @kc
+
   Scenario: When a GET request is sent to the /api/pricePlan/{id} endpoint with invalid (invalid token) authorization
   credentials and correct data (id:125), it should return a status code of 401. Additionally, it should be verified that the
   message field in the response body is "Unauthenticated."
 
     * The api user constructs the base url with the "invalid" token.
     # Api kullanicisi "invalid" token ile base urli olusturur
-    * The api user sets "api/pricePlan/125" path parameters.
-    # Api kullanicisi "api/category/<id>" path parametrelerini olusturur
+    * The api user sets "api/updatePricePlan/125" path parameters.
+    # Api kullanicisi "api/updatePricePlan/<id>" path parametrelerini olusturur
 
     #* The api user sends a GET request and saves the returned response.
     ## Api kullanicisi GET request gonderir ve donen responsei kaydeder
