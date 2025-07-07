@@ -1,7 +1,7 @@
 Feature: As an administrator, I want to be able to update the information of the course price plan with the specified
   id number via API connection.
 
-@kc
+
   Scenario: When a PATCH body containing the correct (id) and correct data (title, dateRange, discount, capacity, webinar_id)
   with valid authorization information is sent to the /api/updatePricePlan/{id} endpoint, it should be verified that
   the status code returned is 200, the remark in the response body is “success” and the Message is “Successfully Updated.”
@@ -15,7 +15,8 @@ Feature: As an administrator, I want to be able to update the information of the
     * The API user prepares a POST request body to send to the addPricePlan endpoint with the "title" "Change_Api", "dateRange" "2025-07-07 - 2025-08-02", "discount" 5, "capacity" 200, and "webinar_id" 2002.
     # Api kullanicisi api updatePricePlan endpointine gondermek icin bir patch request body hazirlar, Post Body Request Methodu kullanıldı
     * The API user sends a PATCH request for id 214 to coursplanprice and records the returned response.
-    # Api kullanicisi PATCH request gonderir ve donen responsei kaydeder
+    # Api kullanicisi PATCH request gonderir ve donen responsei kaydeder. Bu stepte yazılan id otomatik olarak son TC'de kullanılır test edilir
+    # **Son TC ile Birlikte çalıştırılmalıdır
     * The API user verifies that the status code for courspriceplan is 200.
     # Api kullanicisi status codeun 200 oldugunu dogrular
     * API user verifies that the "remark" information in the response body for courspriceplan is "success".
@@ -26,7 +27,7 @@ Feature: As an administrator, I want to be able to update the information of the
     # Api kullanıcısı response body icindeki "Updated Category Id" bilgisinin endpointde yazan id path parametresi ile ayni oldugunu dogrular.
 
 
-@kc
+
   Scenario: When a PATCH request is sent to the /api/updatePricePlan/{id} endpoint with valid authorization information,
   it should be verified that the status code returned is 203, the remark in the response body is “failed” and
   the message is “There is no information to update.”.
@@ -46,7 +47,7 @@ Feature: As an administrator, I want to be able to update the information of the
     * API user verifies that the "message" in the response body for courspriceplan is "There is no information to update.".
     # Api kullanicisi response bodydeki message bilgisinin "There is not category for this id." oldugunu dogrular
 
-@kc
+
   Scenario: When a PATCH body containing an unregistered (id) and correct data (title, dateRange, discount, capacity,
   webinar_id) with valid authorization information is sent to the /api/updatePricePlan/{id} endpoint, the status code returned is 203,
   the remark in the response body is “failed” and the message is "There is not ticket for this id."
@@ -67,7 +68,7 @@ Feature: As an administrator, I want to be able to update the information of the
     # Api kullanicisi response bodydeki message bilgisinin "No id" oldugunu dogrular
 
 
-@kc
+
   Scenario: When a PATCH body that does not contain (id) and contains the correct data (title, dateRange, discount, capacity, webinar_id),
   it should be verified that the status code returned is 203, the remark in the response body is ‘failed’ and the message is ”No id".
 
@@ -86,7 +87,7 @@ Feature: As an administrator, I want to be able to update the information of the
     * API user verifies that the "data.message" in the response body for courspriceplan is "No id".
     # Api kullanicisi response bodydeki message bilgisinin "No id" oldugunu dogrular
 
-@kc
+
   Scenario: When a PATCH body is sent to /api/updatePricePlan/{id} endpoint with invalid token authorization information
   and correct (id) and correct data (title, dateRange, discount, capacity, webinar_id), it should be verified that
   the status code returned is 401 and the message information in the response body is “Unauthenticated.”
@@ -110,7 +111,7 @@ Feature: As an administrator, I want to be able to update the information of the
 
 
 
-@kc
+
   Scenario: Verify that the updated course price plan via API is correctly updated by sending a GET request to
   /api/pricePlan/{id} using the Updated Category ID from the response.
 

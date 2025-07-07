@@ -26,6 +26,7 @@ public class CoursePricePlans_Stepdefinitions {
     public static int updatePricePlanId;
     public static String exceptionMesaj;
     ConfigLoader configLoader = new ConfigLoader();
+    public static int deleteId;
 
 
 
@@ -248,6 +249,7 @@ public class CoursePricePlans_Stepdefinitions {
                                                                               // stepte doğrulamak için kaydediyoruz
         System.out.println("Kayıt edilen Price Plan ID: " + updatePricePlanId);
         Assert.assertEquals(patchId,updatePricePlanId);
+        System.out.println("Update edilen data'nın, Response body'de id'si doğrulanır.");
     }
 
 
@@ -327,7 +329,37 @@ public class CoursePricePlans_Stepdefinitions {
         response.prettyPrint();
     }
 
+    //********************** DELETE *************************
+    @Given("The API user sets {string} path parameters  sends a DELETE request for id {int} to coursplanprice and records the returned response.")
+    public void the_apı_user_sets_path_parameters_sends_a_delete_request_for_id_to_coursplanprice_and_records_the_returned_response(String pathParam, int deletePathid) {
+
+        deleteId = deletePathid;
+
+        HooksAPI.setUpApi("admin");
+        API_Methods.pathParam(pathParam + "/" + deletePathid);
+        response = given()
+                .spec(HooksAPI.spec)
+                .when()
+                .delete(API_Methods.fullPath);
+
+        response.prettyPrint();
     }
+
+    @Given("The API user verifies that the {string} in the response body for coursPricePlan is the same as the id path parameter in the endpoint.")
+    public void the_apı_user_verifies_that_the_in_the_response_body_for_cours_price_plan_is_the_same_as_the_id_path_parameter_in_the_endpoint(String deleteMessageData) {
+
+        jsonPath = response.jsonPath();
+        assertEquals(deleteId, jsonPath.getInt("\""+deleteMessageData+"\""));
+        System.out.println("Doğru data silinmiştir.");
+
+
+
+    }
+
+
+}
+
+
 
 
 
