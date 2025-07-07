@@ -27,6 +27,8 @@ public class ProductFAQ_Stepdefinitions {
     JSONObject jsonObjectBody = new JSONObject();
     HashMap<String, Object> hashMapBody = new HashMap<>();
     TestData testData = new TestData();
+    boolean sendEmptyBody = false;
+
 
     @Given("The api user verifies the {int}, {int}, {string}, {int}, {string}, {string}, {int}, {int}, {string}, {string} and {string} information of the item at {int} in the response body.")
     public void the_api_user_verifies_the_and_information_of_the_item_at_in_the_response_body(int creator_id, int product_id, String order, int created_at, String title, String answer, int translations_id, int product_faq_id, String locale, String translations_title, String translations_answer, int dataIndex) {
@@ -143,6 +145,32 @@ public class ProductFAQ_Stepdefinitions {
 
     }
 
+    @Given("The api user prepares a patch request body to send to the api updateCategory endpoint with the {string}, {string}, {int}.")
+    public void the_api_user_prepares_a_patch_request_body_to_send_to_the_api_update_category_endpoint_with_the(String title, String answer, int product_id) {
+        jsonObjectBody.put("title", title);
+        jsonObjectBody.put("answer", answer);
+        jsonObjectBody.put("product_id", product_id);
+    }
+
+
+
+    @Given("The api user sends a PATCH request and saves the returned response for productFAQ.")
+    public void the_api_user_sends_a_patch_request_and_saves_the_returned_response_for_product_faq() {
+        response = given().spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(jsonObjectBody.toString())
+                .when()
+                .patch(API_Methods.fullPath);
+
+        response.prettyPrint();
+        jsonPath = response.jsonPath();
+    }
+
+    @Given("The api user prepares an empty patch request body to send to the api updateCategory endpoint.")
+    public void the_api_user_prepares_an_empty_patch_request_body_to_send_to_the_api_update_category_endpoint() {
+        sendEmptyBody = true;
+    }
 
 
 
