@@ -1,3 +1,4 @@
+@product
 Feature: As an administrator I want to be able to access the products via API connection.
 
 Scenario Outline: When a GET request is sent to /api/products endpoint with valid authorization information,
