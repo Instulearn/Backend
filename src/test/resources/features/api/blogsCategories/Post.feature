@@ -1,6 +1,7 @@
+@blogCategories
 Feature: Bir yönetici olarak API bağlantısı üzerinden yeni bir blog category kaydı oluşturabilmek istiyorum.
 
-  Scenario: Geçerli yetkilendirme ve geçerli title içeren POST request ile blog kategorisi başarıyla oluşturulmalı.
+  Scenario: Geçerli authorization ve geçerli title içeren POST request ile blog kategorisi başarıyla oluşturulmalı.
     * Api kullanıcısı "admin" token ile base urli oluşturur
     * Api kullanıcısı "api/addBlogCategory" path parametrelerini oluşturur
     * Api kullanıcısı addBlogCategory endpoint’ine gönderilmek üzere geçerli bir post request body hazırlar
@@ -10,7 +11,7 @@ Feature: Bir yönetici olarak API bağlantısı üzerinden yeni bir blog categor
     * Api kullanıcısı response body’deki "Message" bilgisinin "Successfully Added." olduğunu doğrular
 
 
-  Scenario: Geçerli yetkilendirme ile boş veri (title olmadan) gönderildiğinde status 422 ve uygun mesaj dönmeli.
+  Scenario: Geçerli authorization ile boş veri (title olmadan) gönderildiğinde status 422 ve uygun mesaj dönmeli.
     * Api kullanıcısı "admin" token ile base urli oluşturur
     * Api kullanıcısı "api/addBlogCategory" path parametrelerini oluşturur
     * Api kullanıcısı title içermeyen bir post request body hazırlar
@@ -44,4 +45,4 @@ Feature: Bir yönetici olarak API bağlantısı üzerinden yeni bir blog categor
 
     Examples:
       | id  |
-      | 900 |
+      | 116 |
