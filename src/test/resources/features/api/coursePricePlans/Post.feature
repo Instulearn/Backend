@@ -1,4 +1,5 @@
-Feature: As an administrator I want to be able to create a new course price plan record via API connection.
+@kc3
+Feature: [US_013] As an administrator I want to be able to create a new course price plan record via API connection.
 
 
   Scenario: When a POST body with valid authorization information and correct data
@@ -10,10 +11,11 @@ Feature: As an administrator I want to be able to create a new course price plan
     # Api kullanicisi "admin" token ile base urli olusturur
     * The api user sets "api/addPricePlan" path parameters.
     # Api kullanicisi "api/addCategory" path parametrelerini olusturur
-    * The API user prepares a POST request body to send to the addPricePlan endpoint with the "title" "Api_training", "dateRange" "2025-07-07 - 2025-08-02", "discount" 10, "capacity" 150, and "webinar_id" 2050.
+    * The API user prepares a POST request body to send to the addPricePlan endpoint with the "title" "Api_training", "dateRange" "2025-07-07 - 2025-08-02", "discount" 15, "capacity" 80, and "webinar_id" 2050.
     # Api kullanicisi api addCategory endpointine gondermek icin title "Api_training", dateRange "2025-07-07 - 2025-08-02", discount 10, capacity 150 ve webinar_id 2010 olarak bir post request body hazirlar
     * The API user sends a POST request to coursplanprice and records the returned response.
-    # Api kullanicisi POST request gonderir ve donen responsei kaydeder
+    # Api kullanicisi POST request gonderir ve donen responsei kaydeder.
+    # Bu stepte kayıt edilen id, otomatik olarak son TC'de kullanılır. Birlikte çalıştırılmalıdır.
     * The API user verifies that the status code for courspriceplan is 200.
     # Api kullanicisi status codeun 200 oldugunu dogrular
     * API user verifies that the "remark" information in the response body for courspriceplan is "success".
@@ -39,7 +41,7 @@ Feature: As an administrator I want to be able to create a new course price plan
     # Api kullanicisi response bodydeki message bilgisinin "The title field is required." oldugunu dogrular
 
 
-
+  @kc
   Scenario: Verify that a POST body with invalid authorization information (invalid token) and correct data
   (title, dateRange, discount, capacity, webinar_id) is sent to /api/addPricePlan endpoint, it should be verified
   that the status code returned is 401 and the message information in the response body is “Unauthenticated.”

@@ -21,19 +21,25 @@ The specific product information returned in the response body must be verified.
     # Api kullanicisi response body'deki Message bilgisinin "Successfully Updated." oldugunu doğrular
     * The api user verifies that the "Updated Product ID" information in the response body exists.
     # Api kullanicisi response body'deki "Updated Product ID" bilgisinin var oldugunu doğrular
+    * The api user verifies that the response body Updated Product ID matches the ID in the path parameter
+    # Api kullanicisi response bodydeki Updated Product ID bilgisinin path parametresindeki id ile ayni oldugunu dogrular
+    * The api user verifies that the response body Updated Product ID exists
+    # Api kullanicisi response bodydeki Updated Product ID bilgisinin mevcut oldugunu dogrular
+    * The api user sends a GET request with the Updated Product ID and verifies that the record has been updated
+    # Api kullanicisi Updated Product ID ile GET request gonderip kaydin guncellendigi dogrulanmali
 
     Examples:
       | id | type      | price | category_id | title                    | summary                                                           | description                                                                                    |
-      | 1  | physical  | 1500  | 2           | Updated Product Title    | Updated summary for the product                                  | Updated description for the product                                                             |
-      | 2  | digital   | 2500  | 1           | Another Updated Title    | Another updated summary for the product                          | Another updated description for the product                                                     |
+      | 5  | physical  | 1500  | 2           | Updated Product Title    | Updated summary for the product                                  | Updated description for the product                                                             |
+      | 6  | digital   | 2500  | 1           | Another Updated Title    | Another updated summary for the product                          | Another updated description for the product                                                     |
 
 Scenario: When a PATCH request is sent to /api/updateProduct/{id} endpoint with valid authorization information but no data,
 it should be verified that the status code returned is 203 and the remark in the response body is "failed".
 
     * The api user constructs the base url with the "admin" token.
     # Api kullanicisi "admin" token ile base urli olusturur
-    * The api user sets "api/updateProduct/1" path parameters.
-    # Api kullanicisi "api/updateProduct/1" path parametrelerini olusturur
+    * The api user sets "api/updateProduct/5" path parameters.
+    # Api kullanicisi "api/updateProduct/5" path parametrelerini olusturur
     * The api user prepares an empty patch request body.
     # Api kullanicisi data icermeyen bir patch request body hazırlar
     * The api user sends a product PATCH request and saves the returned response.
@@ -51,8 +57,8 @@ it should be verified that the status code returned is 401 and the message infor
 
     * The api user constructs the base url with the "invalid" token.
     # Api kullanicisi "invalid" token ile base urli olusturur
-    * The api user sets "api/updateProduct/1" path parameters.
-    # Api kullanicisi "api/updateProduct/1" path parametrelerini olusturur
+    * The api user sets "api/updateProduct/5" path parameters.
+    # Api kullanicisi "api/updateProduct/5" path parametrelerini olusturur
     * The api user prepares a valid patch request body to be sent to the updateProduct endpoint.
     # Api kullanicisi updateProduct endpoint'ine gönderilmek üzere geçerli bir patch request body hazırlar
     * The api user sends a product PATCH request and saves the returned response.
@@ -101,8 +107,8 @@ it should be verified that the status code returned is 203 and the message infor
 Scenario: Updated Product ID ile path parametresindeki ID'nin aynı olduğunun doğrulanması
     * The api user constructs the base url with the "admin" token.
     # Api kullanicisi "admin" token ile base urli olusturur
-    * The api user sets "api/updateProduct/1" path parameters.
-    # Api kullanicisi "api/updateProduct/1" path parametrelerini olusturur
+    * The api user sets "api/updateProduct/5" path parameters.
+    # Api kullanicisi "api/updateProduct/5" path parametrelerini olusturur
     * The api user prepares a valid patch request body to be sent to the updateProduct endpoint.
     # Api kullanicisi updateProduct endpoint'ine gönderilmek üzere geçerli bir patch request body hazırlar
     * The api user sends a product PATCH request and saves the returned response.
@@ -113,14 +119,14 @@ Scenario: Updated Product ID ile path parametresindeki ID'nin aynı olduğunun d
     # Api kullanicisi response bodydeki remark bilgisinin 'success' oldugunu dogrular
     * The api user verifies that the Message information in the response body is "Successfully Updated.".
     # Api kullanicisi response bodydeki Message bilgisinin 'Successfully Updated.' oldugunu dogrular
-    * The api user verifies that the response bodydeki Updated Product ID bilgisinin path parametresindeki id ile ayni oldugunu dogrular
+    * The api user verifies that the response body Updated Product ID matches the ID in the path parameter
     # Api kullanicisi response bodydeki Updated Product ID bilgisinin path parametresindeki id ile ayni oldugunu dogrular
 
 Scenario: Güncellenen product kaydının API üzerinden verification testi
     * The api user constructs the base url with the "admin" token.
     # Api kullanicisi "admin" token ile base urli olusturur
-    * The api user sets "api/updateProduct/1" path parameters.
-    # Api kullanicisi "api/updateProduct/1" path parametrelerini olusturur
+    * The api user sets "api/updateProduct/5" path parameters.
+    # Api kullanicisi "api/updateProduct/5" path parametrelerini olusturur
     * The api user prepares a valid patch request body to be sent to the updateProduct endpoint.
     # Api kullanicisi updateProduct endpoint'ine gönderilmek üzere geçerli bir patch request body hazırlar
     * The api user sends a product PATCH request and saves the returned response.
@@ -131,7 +137,7 @@ Scenario: Güncellenen product kaydının API üzerinden verification testi
     # Api kullanicisi response bodydeki remark bilgisinin 'success' oldugunu dogrular
     * The api user verifies that the Message information in the response body is "Successfully Updated.".
     # Api kullanicisi response bodydeki Message bilgisinin 'Successfully Updated.' oldugunu dogrular
-    * The api user verifies that the response bodydeki Updated Product ID bilgisinin mevcut oldugunu dogrular
+    * The api user verifies that the response body Updated Product ID exists
     # Api kullanicisi response bodydeki Updated Product ID bilgisinin mevcut oldugunu dogrular
-    * Api kullanicisi Updated Product ID ile GET request gonderip kaydin guncellendigi dogrulanmali
+    * The api user sends a GET request with the Updated Product ID and verifies that the record has been updated
     # Api kullanicisi Updated Product ID ile GET request gonderip kaydin guncellendigi dogrulanmali

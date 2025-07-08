@@ -8,7 +8,7 @@ Feature: Bir yönetici olarak API bağlantısı üzerinden belirtilen id numaras
     * Api kullanicisi "api/blogCategory/<id>" path parametrelerini olusturur
     * Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * Api kullanicisi status codeun 200 oldugunu dogrular
-    * Api kullanicisi response bodydeki "remark" bilgisinin "success" oldugunu dogrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "success" oldugunu dogrular
     * Api kullanicisi response bodydeki dataların <id>, "<title>", "<slug>" içeriklerini doğrular
 
     Examples:
@@ -23,8 +23,8 @@ Feature: Bir yönetici olarak API bağlantısı üzerinden belirtilen id numaras
     * Api kullanicisi "api/blogCategory/11" path parametrelerini olusturur
     * Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * Api kullanicisi status codeun 203 oldugunu dogrular
-    * Api kullanicisi response bodydeki "remark" bilgisinin "failed" oldugunu dogrular
-    * Api kullanicisi response bodydeki "data.message" bilgisinin "There is not category for this id." oldugunu dogrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "failed" oldugunu dogrular
+    * Api kullanicisi response bodyde "data.message" bilgisinin "There is not category for this id." oldugunu dogrular
 
 
   Scenario: Geçerli authorization bilgileri ile id parametresi olmadan /api/blogCategory endpoint’ine bir GET request gönderildiğinde,
@@ -34,8 +34,8 @@ Feature: Bir yönetici olarak API bağlantısı üzerinden belirtilen id numaras
     * Api kullanicisi "api/blogCategory" path parametrelerini olusturur
     * Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * Api kullanicisi status codeun 203 oldugunu dogrular
-    * Api kullanicisi response bodydeki "remark" bilgisinin "failed" oldugunu dogrular
-    * Api kullanicisi response bodydeki "data.message" bilgisinin "No id" oldugunu dogrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "failed" oldugunu dogrular
+    * Api kullanicisi response bodyde "data.message" bilgisinin "No id" oldugunu dogrular
 
   Scenario Outline: Geçersiz (invalid token) authorization bilgileri ve doğru id ile /api/blogCategory/{id} endpoint’ine bir GET request gönderildiğinde,
   response status kodunun 401 ve message bilgisinin "Unauthenticated." olması gerekir.
