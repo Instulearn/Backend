@@ -111,6 +111,10 @@ public class Course_Stepdefinitions {
                 .body(coursePojoRequest)
                 .post(API_Methods.fullPath);
 
+       // id = response.jsonPath().getInt("Added Course ID");
+
+
+
         response.prettyPrint();
     }
 
