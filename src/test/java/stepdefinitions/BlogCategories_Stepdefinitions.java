@@ -119,7 +119,7 @@ public class BlogCategories_Stepdefinitions {
         response.then().statusCode(code);
     }
 
-    @Given("Api kullanıcısı response body’deki {string} bilgisinin {string} olduğunu doğrular")
+    @Given("Api kullanıcısı response bodydeki {string} bilgisinin {string} olduğunu doğrular")
     public void api_kullanıcısı_response_body_deki_bilgisinin_olduğunu_doğrular(String key, String expectedValue) {
         jsonPath = response.jsonPath();
         String actualValue = jsonPath.getString(key);
