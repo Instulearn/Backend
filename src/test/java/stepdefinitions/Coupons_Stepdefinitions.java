@@ -11,6 +11,7 @@ import org.junit.Assert;
 import pojos.Coupons_PatchPojo;
 import pojos.Coupons_PostPojo;
 import utilities.API_Utilities.API_Methods;
+import static org.hamcrest.Matchers.equalTo;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class Coupons_Stepdefinitions {
     Coupons_PostPojo payloadBody;
     Coupons_PatchPojo payloadBody2;
     String generatedCode;
+    Map<String,Object> map;
 
     //*********************************************** GET METHODS **********************************************
 
@@ -224,11 +226,40 @@ public class Coupons_Stepdefinitions {
     @Given("Api kullanicisi api updateCoupon endpointine gondermek icin bos bir patch request body hazirlar")
     public void api_kullanicisi_api_update_coupon_endpointine_gondermek_icin_bos_bir_patch_request_body_hazirlar() {
 
-        Map<String,Object> patchMap = new HashMap<>();
-        patchMap.put("title","");
-        patchMap.put("discount_type","");
+        map = new HashMap<>();
 
     }
+
+    @Given("Api kullanicisi PATCH request gonderir ve donen response'i kaydeder.")
+    public void api_kullanicisi_patch_request_gonderir_ve_donen_response_i_kaydeder() {
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .body(map)
+                .when()
+                .patch(API_Methods.fullPath);
+        response.prettyPrint();
+        json = response.jsonPath();
+
+    }
+
+    @Given("Api kullanicisi GET request gonderir ve donen responsei kaydeder.")
+    public void api_kullanicisi_get_request_gonderir_ve_donen_responsei_kaydeder() {
+        response = given()
+                .spec(HooksAPI.spec)
+                .when()
+                .get(API_Methods.fullPath);
+        response.prettyPrint();
+    }
+
+    @Given("Api kullanıcısı title bilgisinin {string} olduğunu doğrular.")
+    public void api_kullanıcısı_title_bilgisinin_olduğunu_doğrular(String updateTitle) {
+        response.then()
+                .assertThat()
+                .body("data.title", equalTo(updateTitle));
+    }
+
+
 
 
     }
