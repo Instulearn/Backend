@@ -13,3 +13,10 @@ db:
   mobile: "6505551212"
   e_mail:
   code:
+
+database:
+  host: "localhost"
+  port: 3306
+  URL:
+  USERNAME:
+  PASSWORD:
