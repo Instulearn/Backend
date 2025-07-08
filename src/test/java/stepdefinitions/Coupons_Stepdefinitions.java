@@ -29,6 +29,7 @@ public class Coupons_Stepdefinitions {
     Coupons_PatchPojo payloadBody2;
     String generatedCode;
     Map<String,Object> map;
+    int createdId;
 
     //*********************************************** GET METHODS **********************************************
 
@@ -143,6 +144,7 @@ public class Coupons_Stepdefinitions {
                 .post(API_Methods.fullPath);
 
         response.prettyPrint();
+
     }
 
     @Given("Api kullanıcısı status code’un {int} olduğunu doğrular.")
@@ -218,8 +220,8 @@ public class Coupons_Stepdefinitions {
 
     @Given("Api kullanıcısı response body icindeki {string} bilgisinin endpointde yazan id path parametresi ile ayni oldugunu dogrular.")
     public void api_kullanıcısı_response_body_icindeki_bilgisinin_endpointde_yazan_id_path_parametresi_ile_ayni_oldugunu_dogrular(String key) {
-        Map<String, Object> responseMap = response.as(Map.class);
-        int dataKey = (int)responseMap.get(key);
+        map = response.as(Map.class);
+        int dataKey = (int)map.get(key);
         Assert.assertEquals(dataKey, API_Methods.id);
     }
 
@@ -259,7 +261,84 @@ public class Coupons_Stepdefinitions {
                 .body("data.title", equalTo(updateTitle));
     }
 
+    //************************************************* DELETE ************************************************
+
+    @Given("Api kullanıcısı response body icindeki {string} bilgisinin endpointde yazan id path parametresiyle ayni oldugunu dogrular..")
+    public void api_kullanıcısı_response_body_icindeki_bilgisinin_endpointde_yazan_id_path_parametresiyle_ayni_oldugunu_dogrular(String responseKey) {
+        map = response.as(HashMap.class);
+        String dataKey = (String) map.get(responseKey);
+        String endpointKey = String.valueOf(API_Methods.id);
+        Assert.assertEquals(dataKey, endpointKey);
+    }
+
+    @Given("Api kullanıcısı DELETE request gönderir ve dönen response’ı kaydeder.")
+    public void api_kullanıcısı_delete_request_gönderir_ve_dönen_response_ı_kaydeder() {
+        response = given()
+                .spec(HooksAPI.spec)
+                .when()
+                .delete(API_Methods.fullPath);
+        response.prettyPrint();
+        json = response.jsonPath();
+    }
+
+    @Given("Api kullanıcısı response body icindeki {string} ile endpointde yazan id path parametresinin ayni oldugunu dogrular.")
+    public void api_kullanıcısı_response_body_icindeki_ile_endpointde_yazan_id_path_parametresinin_ayni_oldugunu_dogrular(String key) {
+
+        map = response.as(Map.class);
+
+        // Response içinden key ile değeri al (örneğin "Deleted Coupon ID")
+        Object responseValue = map.get(key);
+
+        // null kontrolü yapabilirsin
+        Assert.assertNotNull("Response'da " + key + " bulunamadı", responseValue);
+
+        // String'e çevir ve Integer'a parse et
+        int responseId;
+        try {
+            responseId = Integer.parseInt(responseValue.toString());
+        } catch (NumberFormatException e) {
+            Assert.fail(key + " alanı integer değil: " + responseValue.toString());
+            return; // Fail sonrası devam etmesin
+        }
+
+        // Endpoint path parametresindeki id (API_Methods.id) ile karşılaştır
+        Assert.assertEquals("Response içindeki " + key + " ile endpointde verilen id aynı olmalı", API_Methods.id, responseId);
+
+    }
 
 
+    //Post-Delete birarada yapan method. Böylelikle ürettigini siliyor
+    @Given("Api kullanicisi yeni bir kupon olusturur ve kupon id’sini endpoint için kaydeder")
+    public void api_kullanicisi_yeni_bir_kupon_olusturur_ve_kupon_id_sini_endpoint_için_kaydeder() throws JsonProcessingException {
+        api_kullanıcısı_add_coupon_endpoint_ine_gönderilmek_üzere_geçerli_bir_post_request_body_hazırlar();
+
+        payloadBody = mapper.readValue(payload, Coupons_PostPojo.class);
+
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .body(payloadBody)
+                .when()
+                .post("/api/addCoupon");
+
+        response.prettyPrint();
+
+        map = response.as(Map.class);
+        createdId = (int)map.get("Added Coupon ID");
+        API_Methods.id = createdId;
+        API_Methods.fullPath = "/api/deleteCoupon/" + createdId;
+    }
+
+    @Given("Api kullanicisi GET request gonderir ve donen responseini kaydeder")
+    public void api_kullanicisi_get_request_gonderir_ve_donen_responseini_kaydeder() {
+
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .when()
+                .get(API_Methods.fullPath);
+        response.prettyPrint();
+        json = response.jsonPath();
+    }
 
     }
