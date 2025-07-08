@@ -9,6 +9,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.junit.Assert;
+import pojos.Course_PatchPojo;
 import pojos.Course_PostPojo;
 import utilities.API_Utilities.API_Methods;
 import utilities.API_Utilities.TestData;
@@ -25,6 +26,8 @@ public class Course_Stepdefinitions {
     Response response;
     JsonPath jsonPath;
     Course_PostPojo coursePojoRequest;
+    Course_PatchPojo coursePatchPojoRequest;
+    private int id; // shared across steps
     String exceptionMesaj;
     ConfigLoader configLoader = new ConfigLoader();
     JSONObject jsonObjectBody = new JSONObject();
@@ -155,14 +158,52 @@ public class Course_Stepdefinitions {
     @Given("The api user prepares a patch request body to send to the api updateCourse endpoint.")
     public void the_api_user_prepares_a_patch_request_body_to_send_to_the_api_update_course_endpoint() {
 
+        coursePatchPojoRequest = new Course_PatchPojo(
+                100,
+                15,
+                50,
+                "Web Development 101");
     }
-    @Given("The api user sends a PATCH request and saves the returned response")
-    public void the_api_user_sends_a_patch_request_and_saves_the_returned_response() {
+
+    @Given("The api user sends a PATCH request for id {int} and saves the returned response")
+    public void the_api_user_sends_a_patch_request_and_saves_the_returned_response(int id) {
+
+        this.id = id; // store for later use
+        HooksAPI.setUpApi("admin");
+        API_Methods.pathParam("api/updateCourse/" + id);
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(coursePatchPojoRequest)
+                .patch(API_Methods.fullPath);
+
+        response.prettyPrint();
 
     }
     @Given("The api user verifies that the {string} information in the response body is the same as the id path parameter in the endpoint")
-    public void the_api_user_verifies_that_the_information_in_the_response_body_is_the_same_as_the_id_path_parameter_in_the_endpoint(String string) {
+    public void the_api_user_verifies_that_the_information_in_the_response_body_is_the_same_as_the_id_path_parameter_in_the_endpoint(String key) {
+
+        HashMap<String, Object> responseMap = response.as(HashMap.class);
+        int updatedCourseId = ((Number) responseMap.get("Updated Course ID")).intValue();
+        Assert.assertEquals(updatedCourseId, id);
 
     }
+
+    @Given("The api user sends a PATCH request with {string} token and id {int} and saves the returned response.")
+    public void the_api_user_sends_a_patch_request_with_token_and_saves_the_returned_response(String token, int id) {
+        HooksAPI.setUpApi(token);
+        API_Methods.pathParam("api/updateCourse/" + id);
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .when()
+                .body(coursePatchPojoRequest)
+                .patch(API_Methods.fullPath);
+
+        response.prettyPrint();
+    }
+
+
 
 }
