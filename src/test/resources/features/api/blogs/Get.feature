@@ -27,4 +27,4 @@ Feature: Bir yönetici olarak API bağlantısı üzerinden blogs'a erişebilmek 
     * Api kullanicisi GET request gönderir ve dönen responsu kaydeder
     * Api kullanicisi status code'un 401 oldugunu dogrular
     * Api kullanicisi response bodydeki "message" bilgisinin "Unauthenticated." oldugunu dogrular
-    * Api seni seviyorumsdasda
+    * Api seni seviyorumsdasdasadasdas
