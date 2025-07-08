@@ -1,4 +1,4 @@
-@blogCategories
+
 Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisinin bilgilerini API bağlantısı üzerinden güncelleyebilmek istiyorum.
 
 
@@ -8,11 +8,11 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı updateBlogCategory endpoint’ine gönderilmek üzere bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 200 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "success" olduğunu doğrular
-    * Api kullanıcısı response body’deki "Message" bilgisinin "Successfully Updated." olduğunu doğrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "success" oldugunu dogrular
+    * Api kullanicisi response bodyde "Message" bilgisinin "Successfully Updated." oldugunu dogrular
     Examples:
       | id |
-      | 116|
+      | 120|
 
   Scenario Outline: Geçerli authorization ve geçerli id ile boş veri gönderildiğinde status 203 ve “There is no information to update.” mesajı dönmeli.
     * Api kullanıcısı "admin" token ile base urli oluşturur
@@ -20,11 +20,11 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı boş bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 203 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "failed" olduğunu doğrular
-    * Api kullanıcısı response body’deki "message" bilgisinin "There is no information to update." olduğunu doğrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "failed" oldugunu dogrular
+    * Api kullanicisi response bodyde "message" bilgisinin "There is no information to update." oldugunu dogrular
     Examples:
       | id |
-      |115 |
+      |120 |
 
   Scenario Outline: Geçerli authorization ve doğru data ile, sistemde kayıtlı olmayan bir id içeren PATCH request gönderildiğinde, status code 203, remark "failed" ve message "There is not category for this id." olmalı.
     * Api kullanıcısı "admin" token ile base urli oluşturur
@@ -32,8 +32,8 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı updateBlogCategory endpoint’ine gönderilmek üzere bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 203 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "failed" olduğunu doğrular
-    * Api kullanıcısı response body’deki "data.message" bilgisinin "There is not category for this id." olduğunu doğrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "failed" oldugunu dogrular
+    * Api kullanicisi response bodyde "data.message" bilgisinin "There is not category for this id." oldugunu dogrular
     Examples:
       | id |
       |4546|
@@ -44,8 +44,8 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı updateBlogCategory endpoint’ine gönderilmek üzere bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 203 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "failed" olduğunu doğrular
-    * Api kullanıcısı response body’deki "data.message" bilgisinin "No id" olduğunu doğrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "failed" oldugunu dogrular
+    * Api kullanicisi response bodyde "data.message" bilgisinin "No id" oldugunu dogrular
 
   Scenario Outline: Geçersiz (invalid) token ile, doğru id ve geçerli title içeren PATCH request gönderildiğinde, status code 401 ve message "Unauthenticated." olmalı.
     * Api kullanıcısı "invalid" token ile base urli oluşturur
@@ -53,10 +53,10 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı updateBlogCategory endpoint’ine gönderilmek üzere bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 401 olduğunu doğrular
-    * Api kullanıcısı response body’deki "message" bilgisinin "Unauthenticated." olduğunu doğrular
+    * Api kullanicisi response bodyde "message" bilgisinin "Unauthenticated." oldugunu dogrular
     Examples:
       | id |
-      | 116 |
+      | 120 |
 
   Scenario Outline: Güncellenen blog kategorisinin doğru şekilde güncellendiği, /api/blogCategory/{id} endpoint’ine GET request gönderilerek doğrulanmalı.
     * Api kullanıcısı "admin" token ile base urli oluşturur
@@ -66,4 +66,4 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
 
     Examples:
       | id  |
-      | 116|
+      | 120|

@@ -96,7 +96,7 @@ public class BlogCategories_Stepdefinitions {
 
     @Given("Api kullanıcısı addBlogCategory endpoint’ine gönderilmek üzere geçerli bir post request body hazırlar")
     public void api_kullanıcısı_add_blog_category_endpoint_ine_gönderilmek_üzere_geçerli_bir_post_request_body_hazırlar() {
-        requestBody.put("title", "NewTitle");}
+        requestBody.put("title", "NewTitle112");}
 
     @Given("Api kullanıcısı POST request gönderir ve dönen response’ı kaydeder")
     public void api_kullanıcısı_post_request_gönderir_ve_dönen_response_ı_kaydeder() {
@@ -114,11 +114,13 @@ public class BlogCategories_Stepdefinitions {
         response.then().statusCode(code);
     }
 
-    @Given("Api kullanıcısı response body’deki {string} bilgisinin {string} olduğunu doğrular")
-    public void api_kullanıcısı_response_body_deki_bilgisinin_olduğunu_doğrular(String key, String expectedValue) {
+
+    @Given("Api kullanicisi response bodyde {string} bilgisinin {string} oldugunu dogrular")
+    public void api_kullanicisi_response_bodyde_bilgisinin_oldugunu_dogrular(String string1, String string2) {
+
         jsonPath = response.jsonPath();
-        String actualValue = jsonPath.getString(key);
-        Assert.assertEquals(expectedValue, actualValue);}
+        String actualValue = jsonPath.getString(string1);
+        Assert.assertEquals(string2,actualValue); }
 
     @Given("Api kullanıcısı title içermeyen bir post request body hazırlar")
     public void api_kullanıcısı_title_içermeyen_bir_post_request_body_hazırlar() {
