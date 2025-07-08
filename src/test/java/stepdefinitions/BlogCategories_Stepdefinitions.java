@@ -51,11 +51,11 @@ public class BlogCategories_Stepdefinitions {
                 .assertThat()
                 .statusCode(code);}
 
-    @Given("Api kullanicisi response bodydeki {string} bilgisinin {string} oldugunu dogrular")
-    public void api_kullanicisi_response_bodydeki_bilgisinin_oldugunu_dogrular(String key, String value) {
-        jsonPath = response.jsonPath();
-        String actualValue = jsonPath.getString(key);
-        Assert.assertEquals(value, actualValue);}
+//    @Given("Api kullanicisi response bodydeki {string} bilgisinin {string} oldugunu dogrular")
+//    public void api_kullanicisi_response_bodydeki_bilgisinin_oldugunu_dogrular(String key, String value) {
+//        jsonPath = response.jsonPath();
+//        String actualValue = jsonPath.getString(key);
+//        Assert.assertEquals(value, actualValue);}
 
     @Given("Api kullanicisi response bodydeki dataların  {string}, {string}, {int},{string},{string}, {int} {int} içeriklerini doğrular.")
     public void api_kullanicisi_response_bodydeki_datalarin_iceriğini_dogrular(String pageTitle, String blogCategories,
