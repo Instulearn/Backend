@@ -1,4 +1,3 @@
-@blogCategories
 Feature: Bir yönetici olarak API bağlantısı üzerinden blog categories'e erişebilmek istiyorum.
 
 
@@ -10,7 +9,7 @@ Feature: Bir yönetici olarak API bağlantısı üzerinden blog categories'e eri
     * Api kullanicisi "api/blogCategories" path parametrelerini olusturur
     * Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * Api kullanicisi status codeun 200 oldugunu dogrular
-    * Api kullanicisi response bodydeki "remark" bilgisinin "success" oldugunu dogrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "success" oldugunu dogrular
     * Api kullanicisi response bodydeki dataların  "<pageTitle>", "<blogCategories>", <id>,"<title>","<slug>", <blog_count> <dataIndex> içeriklerini doğrular.
 
     Examples:
@@ -25,4 +24,4 @@ Feature: Bir yönetici olarak API bağlantısı üzerinden blog categories'e eri
     * Api kullanicisi "api/blogCategories" path parametrelerini olusturur
     * Api kullanicisi GET request gonderir ve donen responsei kaydeder
     * Api kullanicisi status codeun 401 oldugunu dogrular
-    * Api kullanicisi response bodydeki "message" bilgisinin "Unauthenticated." oldugunu dogrular
+    * Api kullanicisi response bodyde "message" bilgisinin "Unauthenticated." oldugunu dogrular

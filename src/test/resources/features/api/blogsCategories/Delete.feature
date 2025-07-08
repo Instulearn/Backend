@@ -8,12 +8,11 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog category bil
     * Api kullanıcısı "api/deleteBlogCategory/<id>" path parametrelerini oluşturur
     * Api kullanıcısı DELETE request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 200 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "success" olduğunu doğrular
-    * Api kullanıcısı response body’deki "Message" bilgisinin "Successfully Deleted." olduğunu doğrular
-    * Api kullanıcısı response body’deki "Deleted Blog Category Id" bilgisinin endpoint’teki "<id>" path parametresiyle aynı olduğunu doğrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "success" oldugunu dogrular
+    * Api kullanicisi response bodyde "Message" bilgisinin "Successfully Deleted." oldugunu dogrular
     Examples:
       | id |
-      | 116|
+      | 121|
 
 
   Scenario Outline: Geçerli authorization ile kayıtlı olmayan bir id içeren DELETE request gönderildiğinde,
@@ -23,11 +22,11 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog category bil
     * Api kullanıcısı "api/deleteBlogCategory/<id>" path parametrelerini oluşturur
     * Api kullanıcısı DELETE request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 203 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "failed" olduğunu doğrular
-    * Api kullanıcısı response body’deki "data.message" bilgisinin "There is not category for this id." olduğunu doğrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "failed" oldugunu dogrular
+    * Api kullanicisi response bodyde "data.message" bilgisinin "There is not category for this id." oldugunu dogrular
     Examples:
       | id |
-      | 115|
+      | 121|
 
 
   Scenario: Geçerli authorization olmadan veya id belirtilmeden DELETE request gönderildiğinde,
@@ -37,8 +36,8 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog category bil
     * Api kullanıcısı "api/deleteBlogCategory" path parametrelerini oluşturur
     * Api kullanıcısı DELETE request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 203 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "failed" olduğunu doğrular
-    * Api kullanıcısı response body’deki "data.message" bilgisinin "No id" olduğunu doğrular
+    * Api kullanicisi response bodyde "remark" bilgisinin "failed" oldugunu dogrular
+    * Api kullanicisi response bodyde "data.message" bilgisinin "No id" oldugunu dogrular
 
 
   Scenario Outline: Geçersiz token ile doğru id içeren DELETE request gönderildiğinde,
@@ -48,7 +47,7 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog category bil
     * Api kullanıcısı "api/deleteBlogCategory/<id>" path parametrelerini oluşturur
     * Api kullanıcısı DELETE request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 401 olduğunu doğrular
-    * Api kullanıcısı response body’deki "message" bilgisinin "Unauthenticated." olduğunu doğrular
+    * Api kullanicisi response bodyde "message" bilgisinin "Unauthenticated." oldugunu dogrular
     Examples:
       | id |
       |115 |
@@ -60,7 +59,7 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog category bil
     * Api kullanıcısı "admin" token ile base urli oluşturur
     * Api kullanıcısı "api/blogCategory/<id>" path parametrelerini oluşturur
     * Api kullanıcısı GET request gönderir ve dönen response’ı kaydeder
-    * Api kullanıcısı response body’deki "data.message" bilgisinin "There is not category for this id." olduğunu doğrular
+    * Api kullanicisi response bodyde "data.message" bilgisinin "There is not category for this id." oldugunu dogrular
 
     Examples:
       | id  |
