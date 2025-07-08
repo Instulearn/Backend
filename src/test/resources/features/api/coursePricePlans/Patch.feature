@@ -1,4 +1,5 @@
-Feature: As an administrator, I want to be able to update the information of the course price plan with the specified
+@kc4
+Feature: [US_014] As an administrator, I want to be able to update the information of the course price plan with the specified
   id number via API connection.
 
 

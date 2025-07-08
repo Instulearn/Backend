@@ -29,7 +29,6 @@ public class CoursePricePlans_Stepdefinitions {
     public static int deleteId;
 
 
-
     // ********************** GET *************************
 
 
@@ -88,13 +87,13 @@ public class CoursePricePlans_Stepdefinitions {
                                                                                                                                                                                                                                                    Integer ticket_id,
                                                                                                                                                                                                                                                    String locale, String title) {
         HooksAPI.setUpApi("admin");
-        API_Methods.pathParam("api/pricePlan/"+id);
+        API_Methods.pathParam("api/pricePlan/" + id);
         response = given()
                 .spec(HooksAPI.spec)
                 .when()
                 .get(API_Methods.fullPath);
         jsonPath = response.jsonPath();
-    // Doğrulamalar
+        // Doğrulamalar
 
         assertEquals(id, Integer.valueOf(jsonPath.getInt("data.id")));
         assertEquals(creator_id, Integer.valueOf(jsonPath.getInt("data.creator_id")));
@@ -109,74 +108,73 @@ public class CoursePricePlans_Stepdefinitions {
         assertNull(jsonPath.get("data.updated_at")); // updated_at null
         assertNull(jsonPath.get("data.deleted_at")); // deleted_at null
 
-     // Translations içindeki ticket_id, locale ve title kontrolü
+        // Translations içindeki ticket_id, locale ve title kontrolü
         assertEquals(Integer.valueOf(ticket_id), Integer.valueOf(jsonPath.getInt("data.translations[0].ticket_id")));
         assertEquals(locale, jsonPath.getString("data.translations[0].locale"));
         assertEquals(title, jsonPath.getString("data.translations[0].title"));
     }
 
 
-
     // *********************** POST ****************************
     @Given("The API user prepares a POST request body to send to the addPricePlan endpoint with the {string} {string}, {string} {string}, {string} {int}, {string} {int}, and {string} {int}.")
     public void the_apı_user_prepares_a_post_request_body_to_send_to_the_add_PricePlan_endpoint_with_the_and(String title, String titleAttribute, String dateRange, String dateAttribute, String discount, int discountAttribute, String capacity, int capacityAttribute, String webinarID, int webinarAttribute) {
 
-        coursPricePlanPojoRequestBody = new CoursPricePlanPojo_RequestBody(titleAttribute,dateAttribute,discountAttribute,capacityAttribute,webinarAttribute);
+        coursPricePlanPojoRequestBody = new CoursPricePlanPojo_RequestBody(titleAttribute, dateAttribute, discountAttribute, capacityAttribute, webinarAttribute);
 
-        System.out.println("Request Body: " + coursPricePlanPojoRequestBody);
-        System.out.println(coursPricePlanPojoRequestBody.toString());
+        System.out.println("Pojo Request Body: " + coursPricePlanPojoRequestBody.toString());
+
     }
-
 
 
     @Given("The API user sends a POST request to coursplanprice and records the returned response.")
     public void the_apı_user_sends_a_post_request_to_coursplanprice_and_records_the_returned_response() {
 
-        API_Methods.pathParam("api/addPricePlan");
         if (sendEmptyBody) {
             response = given()
                     .spec(HooksAPI.spec)
                     .contentType(ContentType.JSON)
+                    .body("{}") // boş body gönder
                     .when()
-                    .body("{}") // boş gönder
                     .post(API_Methods.fullPath);
         } else {
             response = given()
                     .spec(HooksAPI.spec)
                     .contentType(ContentType.JSON)
+                    .body(coursPricePlanPojoRequestBody) // dolu POJO gönder
                     .when()
-                    .body(coursPricePlanPojoRequestBody) // dolu gönder
                     .post(API_Methods.fullPath);
         }
 
         response.prettyPrint();
         jsonPath = response.jsonPath();
-        createdPricePlanId = (Integer) jsonPath.getInt("\"Added Price Plans ID\""); //id'yi, post ettiğimiz data'yı son
-                                                                                    // stepte Get ile doğrulamak için kaydediyoruz
-        System.out.println("Kayıt edilen Price Plan ID: " + createdPricePlanId);
+
+        if (!sendEmptyBody && response.getStatusCode() == 200) {
+            createdPricePlanId = jsonPath.getInt("\"Added Price Plans ID\"");  // response’daki gerçek id alanı burada "id" olmalı
+            System.out.println("Kayıt edilen Price Plan ID: " + createdPricePlanId);
+        } else {
+            System.out.println("Boş body gönderildi veya hata döndü, ID alınmadı.");
+        }
     }
-
-
 
 
     @Given("The API user verifies that the status code for courspriceplan is {int}.")
     public void the_apı_user_verifies_that_the_status_code_for_courspriceplan_is(int statusCode) {
         response.then()
                 .statusCode(statusCode);
+
+        System.out.println("Status Code Doğrulandı. Status Code : " + statusCode);
     }
-
-
 
 
     @Given("API user verifies that the {string} information in the response body for courspriceplan is {string}.")
-    public void apı_user_verifies_that_the_information_in_the_response_body_for_courspriceplan_is(String remark, String remarkAttribute) {
+    public void apı_user_verifies_that_the_information_in_the_response_body_for_courspriceplan_is(String value, String dataAttribute) {
         response.then()
                 .assertThat()
-                .body(remark, equalTo(remarkAttribute));
+                .body(value, equalTo(dataAttribute));
+
+        System.out.println("Doğru mesaj görüntülendi. MESAJ: " + dataAttribute);
 
     }
-
-
 
 
     @Given("API user verifies that the {string} in the response body for courspriceplan is {string}.")
@@ -185,9 +183,8 @@ public class CoursePricePlans_Stepdefinitions {
                 .assertThat()
                 .body(Message, equalTo(MessageAttribute));
 
+        System.out.println("Doğru mesaj görüntülendi. MESAJ : " + MessageAttribute);
     }
-
-
 
 
     // bu step boş bir post request gönderir
@@ -197,12 +194,11 @@ public class CoursePricePlans_Stepdefinitions {
     }
 
 
-
-
     @Given("The API user enters the id value she post into the {string} parameter.")
     public void the_apı_user_enters_the_id_value_she_post_into_the_parameter(String params) {
         HooksAPI.setUpApi("admin");
-        API_Methods.pathParam(params +"/" + createdPricePlanId); //yukarıda son post ettiğimiz id'ye sahip data
+        API_Methods.pathParam(params + "/" + createdPricePlanId); //151. satırda kayıt ettiğimiz Id
+                                                                    // burada doğrulama için kullanıyoruz
         response = given()
                 .spec(HooksAPI.spec)
                 .when()
@@ -212,13 +208,11 @@ public class CoursePricePlans_Stepdefinitions {
     }
 
 
-
-
     // ************************ PATCH ********************************
     @Given("The API user sends a PATCH request for id {int} to coursplanprice and records the returned response.")
     public void the_apı_user_sends_a_patch_request_for_id_to_coursplanprice_and_records_the_returned_response(int patchId) {
 
-        API_Methods.pathParam("api/updatePricePlan/"+patchId);
+        API_Methods.pathParam("api/updatePricePlan/" + patchId);
         if (sendEmptyBody) {
             response = given()
                     .spec(HooksAPI.spec)
@@ -239,21 +233,16 @@ public class CoursePricePlans_Stepdefinitions {
     }
 
 
-
-
     @Given("The api user verifies that the {string} in the response body for courspriceplan is the same as the {int} id path parameter.")
     public void the_api_user_verifies_that_the_information_in_the_response_body_for_courspriceplan_is_the_same_as_the_id_path_parameter_in_the_endpoint(String patchIdData, int patchId) {
 
         jsonPath = response.jsonPath();
-        updatePricePlanId = (Integer) jsonPath.getInt("\""+patchIdData+"\""); //id'yi, patch ettiğimiz data'yı bu
-                                                                              // stepte doğrulamak için kaydediyoruz
+        updatePricePlanId = (Integer) jsonPath.getInt("\"" + patchIdData + "\""); //id'yi, patch ettiğimiz data'yıson TC'de
+                                                                                    // stepte doğrulamak için kaydediyoruz
         System.out.println("Kayıt edilen Price Plan ID: " + updatePricePlanId);
-        Assert.assertEquals(patchId,updatePricePlanId);
+        Assert.assertEquals(patchId, updatePricePlanId);
         System.out.println("Update edilen data'nın, Response body'de id'si doğrulanır.");
     }
-
-
-
 
 
     @Given("The API user sends a PATCH request for not contain id to coursplanprice and records the returned response.")
@@ -278,7 +267,6 @@ public class CoursePricePlans_Stepdefinitions {
 
         response.prettyPrint();
     }
-
 
 
     @Given("The API user sends a PATCH request to courspriceplan, records the returned response, and verifies that the status code is {string} with the reason Unauthorized.")
@@ -320,7 +308,7 @@ public class CoursePricePlans_Stepdefinitions {
     @Given("The API user enters the id value she patch into the {string} parameter.")
     public void the_apı_user_enters_the_id_value_she_patch_into_the_parameter(String params) {
         HooksAPI.setUpApi("admin");
-        API_Methods.pathParam(params +"/" + updatePricePlanId); //yukarıda son post ettiğimiz id'ye sahip data
+        API_Methods.pathParam(params + "/" + updatePricePlanId); // 236. satırda kayıt ettiğimiz id
         response = given()
                 .spec(HooksAPI.spec)
                 .when()
@@ -349,15 +337,30 @@ public class CoursePricePlans_Stepdefinitions {
     public void the_apı_user_verifies_that_the_in_the_response_body_for_cours_price_plan_is_the_same_as_the_id_path_parameter_in_the_endpoint(String deleteMessageData) {
 
         jsonPath = response.jsonPath();
-        assertEquals(deleteId, jsonPath.getInt("\""+deleteMessageData+"\""));
-        System.out.println("Doğru data silinmiştir.");
+        assertEquals(deleteId, jsonPath.getInt("\"" + deleteMessageData + "\""));
+        System.out.println(deleteId + "id'ye sahip data silinme işlemi doğrulanmıştır. ");
+    }
 
 
+    @Given("The API user enters the data of the deleted ID into the {string} parameter with the Get method.")
+    public void the_apı_user_enters_the_data_of_the_deleted_ıd_into_the_parameter_with_the_get_method(String pathParam) {
+        HooksAPI.setUpApi("admin");
+        API_Methods.pathParam(pathParam + "/" + deleteId); //320. satırda kayıt ettiğimiz id'ye sahip data
+        response = given()
+                .spec(HooksAPI.spec)
+                .when()
+                .get(API_Methods.fullPath);
+
+        response.prettyPrint();
+
+        System.out.println("Silinen id'li data, GET methodu ile doğrulandı");
 
     }
 
 
 }
+
+
 
 
 
