@@ -24,6 +24,7 @@ public class CourseFAQ_Stepdefinitions<addCoursefaqPojo> {
     Response response;
     JsonPath jsonPath;
     String exceptionMesaj;
+    private int id;
     ConfigLoader configLoader = new ConfigLoader();
     JSONObject jsonObjectBody = new JSONObject();
     HashMap<String, Object> hashMapBody = new HashMap<>();
@@ -82,9 +83,20 @@ public class CourseFAQ_Stepdefinitions<addCoursefaqPojo> {
 
     }
 
+    @Given("The api user prepares a patch request body to send to the api updateCourseFAQ {int} endpoint with the {string}, {string}.")
+    public void the_api_user_prepares_a_patch_request_body_to_send_to_the_api_update_course_faq_endpoint_with_the(int id, String title, String answer) {
+        this.id = id;
+        jsonObjectBody.put("title", title);
+        jsonObjectBody.put("answer", answer);
+        //jsonObjectBody.put("course_id", id);
+    }
+
 
     @Given("The api user sends a PATCH request and saves the returned response for Coursefaq.")
     public void the_api_user_sends_a_patch_request_and_saves_the_returned_response_for_Course_faq() {
+
+        HooksAPI.setUpApi("admin");
+        API_Methods.pathParam("api/updateCoursefaq/" + id);
         response = given().spec(HooksAPI.spec)
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
@@ -96,6 +108,54 @@ public class CourseFAQ_Stepdefinitions<addCoursefaqPojo> {
         jsonPath = response.jsonPath();
     }
 
+    @Given("The api user prepares an empty patch request body to send to the api updateCoursefaq {int} endpoint")
+    public void the_api_user_prepares_an_empty_patch_request_body_to_send_to_the_api_update_category_endpoint(int id) {
+        this.id = id;
+        jsonObjectBody = new JSONObject();
+        //sendEmptyBody = true;
+    }
 
+    @Given("The api user sends a PATCH request with invalid token and verifies that the status code is {string} with the reason phrase Unauthorized.")
+    public void the_api_user_sends_a_patch_request_with_invalid_token_and_verifies_that_the_status_code_is_with_the_reason_phrase_unauthorized(String code) {
+
+        HooksAPI.setUpApi("invalid");
+        API_Methods.pathParam("api/updateCoursefaq/" + id);
+        response = given().spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(jsonObjectBody.toString())
+                .when()
+                .patch(API_Methods.fullPath);
+
+        response.prettyPrint();
+
+        Assert.assertEquals(configLoader.getApiConfig("unauthorizedExceptionMessage"), API_Methods.tryCatchRequest("PATCH", hashMapBody));
+
+    }
+
+    @Given("The api user sends a PATCH request with invalid token and saves the returned response for Coursefaq.")
+    public void the_api_user_sends_a_patch_request_with_invalid_token_and_saves_the_returned_response_for_coursefaq() {
+        HooksAPI.setUpApi("invalid");
+        API_Methods.pathParam("api/updateCoursefaq/" + id);
+        response = given().spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .accept(ContentType.JSON)
+                .body(jsonObjectBody.toString())
+                .when()
+                .patch(API_Methods.fullPath);
+
+        response.prettyPrint();
+    }
+    @Given("The api user verifies that the status code is {int} and the {string} information in the response body is {string}.")
+    public void the_api_user_verifies_that_the_status_code_is_and_the_information_in_the_response_body_is(Integer code, String key, String value) {
+        response.then()
+                .assertThat()
+                .statusCode(code);
+
+        response.then()
+                .assertThat()
+                .body(key, equalTo(value));
+
+    }
 
 }
