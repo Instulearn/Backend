@@ -2,7 +2,7 @@
 Feature: US_001, US_002, US_003
 
   Background: Database connection
-    * Database connection established
+    * Database connection established.
 
   @US1  # Calculate the total meeting time in minutes for the user email=oske.work@gmail.com in the users table.
   Scenario: Calculate the total meeting time in minutes for the user

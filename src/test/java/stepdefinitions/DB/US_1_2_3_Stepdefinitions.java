@@ -1,8 +1,27 @@
 package stepdefinitions.DB;
 
+import helperDB.CommonData;
 import io.cucumber.java.en.Given;
+import manage.US_1_2_3_Manage;
+import java.sql.SQLException;
+import static helperDB.JDBC_Structure_Methods.closeConnection;
+import static helperDB.JDBC_Structure_Methods.createConnection;
 
-public class US_1_2_3_Stepdefinitions {
+public class US_1_2_3_Stepdefinitions extends US_1_2_3_Manage {
+    CommonData data = new CommonData();
+
+    public US_1_2_3_Stepdefinitions() throws SQLException {
+    }
+
+    @Given("Database connection established.")
+    public void database_connection_established() {
+        createConnection();
+    }
+
+    @Given("Database connection is closed.")
+    public void database_connection_is_closed() {
+        closeConnection();
+    }
 
 
     @Given("Calculate the total meeting time in minutes for the user {string} in the  {string} table")
@@ -12,11 +31,6 @@ public class US_1_2_3_Stepdefinitions {
 
     @Given("Verify the information Results are obtained")
     public void verify_the_information_results_are_obtained() {
-
-    }
-
-    @Given("Database connection is closed.")
-    public void database_connection_is_closed() {
 
     }
 
