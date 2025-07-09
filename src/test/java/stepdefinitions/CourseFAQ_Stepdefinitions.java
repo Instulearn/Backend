@@ -58,19 +58,7 @@ public class CourseFAQ_Stepdefinitions<addCoursefaqPojo> {
                         "data.updated_at", equalTo(1718059480),
                         "data.translations[0].id", equalTo(0));
     }
-    @Given("The api user sends a POST request and saves the returned response.")
-    public void the_api_user_sends_a_post_request_and_saves_the_returned_response() {
 
-
-        response = given()
-                .spec(HooksAPI.spec)
-                .contentType(ContentType.JSON)
-                .when()
-                .body(jsonObjectBody.toString())
-                .post(API_Methods.fullPath);
-
-        response.prettyPrint();
-    }
 
     @Given("The api user prepares a post request without any data to send to the api add Coursefaq endpoint.")
     public void the_api_user_prepares_a_post_request_without_any_data_to_send_to_the_api_add_Coursefaq_endpoint() {
@@ -94,14 +82,6 @@ public class CourseFAQ_Stepdefinitions<addCoursefaqPojo> {
 
     }
 
-    @Given("The api user prepares a patch request body to send to the api updateCategory endpoint with the {string}, {string}, {int}.")
-    public void the_api_user_prepares_a_patch_request_body_to_send_to_the_api_update_category_endpoint_with_the(String title, String answer, int course_id) {
-        jsonObjectBody.put("title", title);
-        jsonObjectBody.put("answer", answer);
-        jsonObjectBody.put("course_id", course_id);
-    }
-
-
 
     @Given("The api user sends a PATCH request and saves the returned response for Coursefaq.")
     public void the_api_user_sends_a_patch_request_and_saves_the_returned_response_for_Course_faq() {
@@ -116,18 +96,6 @@ public class CourseFAQ_Stepdefinitions<addCoursefaqPojo> {
         jsonPath = response.jsonPath();
     }
 
-    @Given("The api user prepares an empty patch request body to send to the api updateCategory endpoint.")
-    public void the_api_user_prepares_an_empty_patch_request_body_to_send_to_the_api_update_category_endpoint() {
-         sendEmptyBody = true;
-    }
-
-
 
 
 }
-
-
-
-
-
-
