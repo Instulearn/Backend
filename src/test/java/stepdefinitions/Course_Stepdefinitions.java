@@ -27,7 +27,8 @@ public class Course_Stepdefinitions {
     JsonPath jsonPath;
     Course_PostPojo coursePojoRequest;
     Course_PatchPojo coursePatchPojoRequest;
-    private int id; // shared across steps
+    private int id;
+    int updatedId; // shared across steps
     String exceptionMesaj;
     ConfigLoader configLoader = new ConfigLoader();
     JSONObject jsonObjectBody = new JSONObject();
@@ -111,9 +112,7 @@ public class Course_Stepdefinitions {
                 .body(coursePojoRequest)
                 .post(API_Methods.fullPath);
 
-       // id = response.jsonPath().getInt("Added Course ID");
-
-
+        id = response.jsonPath().getInt("\"Added Course ID\"");
 
         response.prettyPrint();
     }
@@ -188,9 +187,8 @@ public class Course_Stepdefinitions {
     @Given("The api user verifies that the {string} information in the response body is the same as the id path parameter in the endpoint")
     public void the_api_user_verifies_that_the_information_in_the_response_body_is_the_same_as_the_id_path_parameter_in_the_endpoint(String key) {
 
-        HashMap<String, Object> responseMap = response.as(HashMap.class);
-        int updatedCourseId = ((Number) responseMap.get("Updated Course ID")).intValue();
-        Assert.assertEquals(updatedCourseId, id);
+        updatedId = response.jsonPath().getInt("\"" + key + "\"");
+        Assert.assertEquals(id, updatedId);
 
     }
 
@@ -208,6 +206,34 @@ public class Course_Stepdefinitions {
         response.prettyPrint();
     }
 
+    @Given("The api user sends a DELETE request with {string} token and saves the returned response.")
+    public void the_api_user_sends_a_delete_request_and_saves_the_returned_response(String token) {
+        HooksAPI.setUpApi(token);
+        API_Methods.pathParam("api/deleteCourse/" + id);
+        response = given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .when()
+                .delete(API_Methods.fullPath);
+
+        response.prettyPrint();
+    }
+
+    @Given("The api user sends a GET request with the Deleted Course ID information and saves the returned response.")
+    public void the_api_user_sends_a_get_request_with_the_information_and_saves_the_returned_response() {
+        API_Methods.pathParam("api/course/"+ updatedId);
+        response = given()
+                .spec(HooksAPI.spec)
+                .when()
+                .get(API_Methods.fullPath);
+
+        response.prettyPrint();
+    }
+
+    @Given("Background executed")
+    public void background_executed() {
+        System.out.println("Background executed");
+    }
 
 
 }
