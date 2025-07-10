@@ -1,4 +1,5 @@
-Feature: As an administrator, I should be able to access the detailed information of the course price plan with
+@kc2
+Feature: [US_012] As an administrator, I should be able to access the detailed information of the course price plan with
   the specified id number via the API connection.
 
 
@@ -17,7 +18,7 @@ Feature: As an administrator, I should be able to access the detailed informatio
     # Api kullanicisi status codeun 200 oldugunu dogrular
     * The api user verifies that the "remark" information in the response body is "success".
     # Api kullanicisi response bodydeki remark bilgisinin "success" oldugunu dogrular
-    * And The api user verifies the list data with id 125, creator_id 1330, webinar_id 2002, bundle_id null, start_date 1717200000, end_date 1719705600, discount 20, capacity 50, order null, created_at 1717713962, updated_at null, deleted_at null, ticket_id 125, locale "en", title "Test Price Plans" in the response body.
+    * And The api user verifies the list data with id 125, creator_id 1330, webinar_id 2002, bundle_id null, start_date 1751846400, end_date 1754092800, discount 5, capacity 200, order null, created_at 1717713962, updated_at null, deleted_at null, ticket_id 125, locale "en", title "Change_Api" in the response body.
     # Api kullanicisi response bodydeki dataların <data_id>, "<slug>", "<icon>", <order>, <translations_id>, <category_id>, "<locale>" ve "<title>" içeriklerini doğrular.
 
 
@@ -57,7 +58,7 @@ Feature: As an administrator, I should be able to access the detailed informatio
     * The api user verifies that the "data.message" information in the response body is "No id".
     # Api kullanicisi response bodydeki message bilgisinin "No id" oldugunu dogrular
 
-  @kc
+
   Scenario: When a GET request is sent to the /api/pricePlan/{id} endpoint with invalid (invalid token) authorization
   credentials and correct data (id:125), it should return a status code of 401. Additionally, it should be verified that the
   message field in the response body is "Unauthenticated."
@@ -65,7 +66,7 @@ Feature: As an administrator, I should be able to access the detailed informatio
     * The api user constructs the base url with the "invalid" token.
     # Api kullanicisi "invalid" token ile base urli olusturur
     * The api user sets "api/pricePlan/125" path parameters.
-    # Api kullanicisi "api/category/<id>" path parametrelerini olusturur
+    # Api kullanicisi "api/pricePlan/<id>" path parametrelerini olusturur
 
     #* The api user sends a GET request and saves the returned response.
     ## Api kullanicisi GET request gonderir ve donen responsei kaydeder

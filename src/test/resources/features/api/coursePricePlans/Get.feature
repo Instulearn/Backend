@@ -1,4 +1,5 @@
-Feature: As an administrator I want to be able to access course price plans via API connection.
+@kc1
+Feature: [US_011] As an administrator I want to be able to access course price plans via API connection.
 
 
   Scenario Outline: When a GET request is sent to the /api/categories endpoint with valid authorization,
@@ -20,14 +21,14 @@ Feature: As an administrator I want to be able to access course price plans via 
 
     Examples:
       | id  | creator_id | webinar_id | start_date  | end_date    | discount | capacity | created_at  | ticket_id | locale | title          | dataIndex |
-      | 196 | 1589       | 2658       | 1750550400  | 1752451200  | 15       | 2        | 1750466029  | 196       | en     | Discount       | 0         |
+      | 196 | 1589       | 2658       | 1750550400  | 1752451200  | 15       | 2        | 1750466029  | 196       | en     | Discount       | 6         |
 
 
 
 
 
-  @kc
-  Scenario: When a GET request is sent to the /api/courses endpoint with invalid (invalid token) authorization credentials,
+
+  Scenario: When a GET request is sent to the /api/pricePlans endpoint with invalid (invalid token) authorization credentials,
   it should return a 401 status code. Additionally, it should be verified that the message field in the response body is
   "Unauthenticated."
 

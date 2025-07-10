@@ -6,8 +6,10 @@ api:
   invalidToken: "invalid"
 
 database:
-  host: "localhost"
-  port: 3306
-  URL:
-  USERNAME:
-  PASSWORD:
+  URL: "jdbc:mysql://195.35.59.18/u201212290_qainstulearn"
+  USERNAME: "u201212290_qainstuser"
+  PASSWORD: "A/s&Yh[qU0"
+  account_id: "35000"
+  mobile: "6505551212"
+  e_mail:
+  code:
