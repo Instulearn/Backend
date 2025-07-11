@@ -16,4 +16,25 @@ public class US_19_20_21_Manage {
         );
     }
 
+    private String failed_jobs_delete_data = "DELETE FROM failed_jobs WHERE uuid=?;";
+
+    //US21
+    private String us21banStatus_users = "SELECT \n" +
+            "    ban_status, \n" +
+            "    COUNT(*) AS total_users, \n" +
+            "    ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM users), 2) AS percentage\n" +
+            "FROM (\n" +
+            "    SELECT \n" +
+            "        CASE \n" +
+            "            WHEN ban = 1 AND ban_end_at IS NULL THEN 'Currently Banned'\n" +
+            "            WHEN ban = 1 AND ban_end_at IS NOT NULL THEN 'Previously Banned'\n" +
+            "            ELSE 'Never Banned'\n" +
+            "        END AS ban_status\n" +
+            "    FROM users\n" +
+            ") AS ban_info\n" +
+            "GROUP BY ban_status;\n";
+
+
+
+
 }
