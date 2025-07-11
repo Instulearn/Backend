@@ -3,7 +3,8 @@ package manage;
 import lombok.Getter;
 
 @Getter
-public class Manage {
+public class
+Manage {
 
     /**
      * US_01
