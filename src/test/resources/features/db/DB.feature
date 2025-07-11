@@ -20,9 +20,9 @@ Feature: DB
 
     Examples:
       | status   | total_meetings | percentage |
-      | open     | 1              | 0.9091     |
-      | pending  | 84             | 76.3636    |
-      | finished | 25             | 22.7273    |
+      | open     | 3              | 2.2727     |
+      | pending  | 97             | 73.4848    |
+      | finished | 32             | 24.2424    |
 
 
   @US3  # Combine Product Orders and Gifts tables to list gift information for product orders
