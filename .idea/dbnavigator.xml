@@ -14,6 +14,9 @@
       <assistant-state connection-id="8415617a-2a31-49eb-8dd2-25e4bac8d9e0" default-profile-name="" selected-conversation-id="" assistant-type="GENERIC" availability="UNAVAILABLE" acknowledgement="NONE">
         <conversations />
       </assistant-state>
+      <assistant-state connection-id="c5b19434-a72b-4a2e-a141-b453ca018541" default-profile-name="" selected-conversation-id="" assistant-type="GENERIC" availability="UNAVAILABLE" acknowledgement="NONE">
+        <conversations />
+      </assistant-state>
     </assistants>
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -23,20 +26,38 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="8415617a-2a31-49eb-8dd2-25e4bac8d9e0">
-      <console name="Instulearn_Database" type="STANDARD" schema="u201212290_qainstulearn" session="Main"><![CDATA[SELECT * FROM users;
-SELECT distinct status FROM users;
-SELECT distinct ban FROM users;]]></console>
+    <connection id="c5b19434-a72b-4a2e-a141-b453ca018541">
+      <console name="Instulearn" type="STANDARD" schema="u201212290_qainstulearn" session="Main"><![CDATA[DELETE FROM failed_jobs WHERE uuid = 'deneme_mySQL_uuid_1'
+DELETE FROM failed_jobs WHERE uuid = 'deneme_mySQL_uuid_2'
+DELETE FROM failed_jobs WHERE uuid = 'deneme_mySQL_uuid_3'
+DELETE FROM failed_jobs WHERE uuid = 'deneme_mySQL_uuid_4'
+DELETE FROM failed_jobs WHERE uuid = 'deneme_mySQL_uuid_5'
+
+
+select * from failed_jobs;
+select * from failed_jobs where uuid = 'deneme_mySQL_uuid_5';
+
+
+INSERT INTO failed_jobs (uuid,connection,queue,payload,exception) VALUES ('deneme_mySQL_uuid_1','connection_deneme1','queue_mySQL1','payload_mySQL1','exception_mySQL1'),('deneme_mySQL_uuid_2','connection_deneme2','queue_mySQL2','payload_mySQL2','exception_mySQL2'),('deneme_mySQL_uuid_3','connection_deneme3','queue_mySQL3','payload_mySQL3','exception_mySQL3'),('deneme_mySQL_uuid_4','connection_deneme4','queue_mySQL4','payload_mySQL4','exception_mySQL4'),('deneme_mySQL_uuid_5','connection_deneme5','queue_mySQL5','payload_mySQL5','exception_mySQL5');
+
+
+SELECT * FROM users
+
+SELECT * FROM become_instructors
+
+select * from product_faqs;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="c5b19434-a72b-4a2e-a141-b453ca018541" object-ref="consoles/Instulearn" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="8415617a-2a31-49eb-8dd2-25e4bac8d9e0" />
+    <connection id="c5b19434-a72b-4a2e-a141-b453ca018541" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
@@ -47,9 +68,9 @@ SELECT distinct ban FROM users;]]></console>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection source-id="" id="8415617a-2a31-49eb-8dd2-25e4bac8d9e0" active="true" signed="true">
+      <connection source-id="" id="c5b19434-a72b-4a2e-a141-b453ca018541" active="true" signed="true">
         <database>
-          <name value="Instulearn_Database" />
+          <name value="Instulearn" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
@@ -71,7 +92,7 @@ SELECT distinct ban FROM users;]]></console>
           <token-type value="" />
           <token-config-file value="" />
           <token-profile value="" />
-          <session-user value="u201212290_qainstuser@178.233.116.191" />
+          <session-user value="u201212290_qainstuser@85.107.72.228" />
         </database>
         <properties>
           <auto-commit value="false" />
