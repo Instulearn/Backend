@@ -22,7 +22,7 @@ public class Manage {
      * US_03
      **/
 
-    private String Us03_Insert_a_data_entry_into_the_gifts_table = "INSERT INTO u168183796_qainstulearn.gifts (user_id, webinar_id, bundle_id, product_id, name, email, date, description, viewed, status, created_at)\n" +
+    private String Us03_Insert_a_data_entry_into_the_gifts_table = "INSERT INTO u201212290_qainstulearn.gifts (user_id, webinar_id, bundle_id, product_id, name, email, date, description, viewed, status, created_at)\n" +
             "SELECT u.id,w.id,b.id,p.id,u.full_name,u.email,\n" +
             "    UNIX_TIMESTAMP(NOW()) AS unix_timestamp,\n" +
             "    CONCAT_WS(' ',\n" +
@@ -38,13 +38,13 @@ public class Manage {
             "    END AS status,\n" +
             "    UNIX_TIMESTAMP(NOW()) AS created_at\n" +
             "FROM\n" +
-            "    (SELECT id, full_name, email FROM u168183796_qainstulearn.users ORDER BY RAND() LIMIT 1) u\n" +
+            "    (SELECT id, full_name, email FROM u201212290_qainstulearn.users ORDER BY RAND() LIMIT 1) u\n" +
             "JOIN\n" +
-            "    (SELECT id FROM u168183796_qainstulearn.webinars ORDER BY RAND() LIMIT 1) w\n" +
+            "    (SELECT id FROM u201212290_qainstulearn.webinars ORDER BY RAND() LIMIT 1) w\n" +
             "JOIN\n" +
-            "    (SELECT id FROM u168183796_qainstulearn.bundles ORDER BY RAND() LIMIT 1) b\n" +
+            "    (SELECT id FROM u201212290_qainstulearn.bundles ORDER BY RAND() LIMIT 1) b\n" +
             "JOIN\n" +
-            "    (SELECT id FROM u168183796_qainstulearn.products ORDER BY RAND() LIMIT 1) p;";
+            "    (SELECT id FROM u201212290_qainstulearn.products ORDER BY RAND() LIMIT 1) p;";
 
 
     private String us04_gift_information_for_product_orders = "SELECT po.id AS product_order_id, po.product_id, g.id AS gift_id, g.name AS gift_name FROM product_orders po JOIN gifts g ON po.product_id= g.product_id;";
@@ -52,9 +52,9 @@ public class Manage {
     private String us05_quizzess_limited_questions = "SELECT * FROM quizzes WHERE display_limited_questions = 1 ORDER BY display_number_of_questions DESC;";
 
     private String us06_quizzess_questions = "SELECT qq.id, qq.quiz_id, qq.creator_id, qq.grade, qq.type, qq.image, qq.video, qq.order, qq.created_at, qq.updated_at\n" +
-            "FROM u168183796_qainstulearn.quizzes_questions qq JOIN u168183796_qainstulearn.quizzes q ON  qq.quiz_id = q.id WHERE q.pass_mark = 100;";
+            "FROM u201212290_qainstulearn.quizzes_questions qq JOIN u201212290_qainstulearn.quizzes q ON  qq.quiz_id = q.id WHERE q.pass_mark = 100;";
 
-    private String us07_In_the_supports_table_add_2_data_containing = "INSERT INTO u168183796_qainstulearn.supports (user_id, webinar_id, department_id, title, created_at, updated_at)\n" +
+    private String us07_In_the_supports_table_add_2_data_containing = "INSERT INTO u201212290_qainstulearn.supports (user_id, webinar_id, department_id, title, created_at, updated_at)\n" +
             "SELECT u1.id, w1.id, sd1.id, \n" +
             "  CONCAT_WS(' ',\n" +
             "    (SELECT word FROM (SELECT 'Hello' AS word UNION SELECT 'Hi' UNION SELECT 'Hey' UNION SELECT 'Greetings') AS words ORDER BY RAND() LIMIT 1),\n" +
@@ -62,9 +62,9 @@ public class Manage {
             "    (SELECT word FROM (SELECT '!' AS word UNION SELECT '.' UNION SELECT '!!' UNION SELECT '...') AS words ORDER BY RAND() LIMIT 1)\n" +
             "  ) AS title,\n" +
             "   UNIX_TIMESTAMP(),  UNIX_TIMESTAMP()\n" +
-            "FROM (SELECT id FROM u168183796_qainstulearn.users ORDER BY RAND() LIMIT 1) u1\n" +
-            "JOIN (SELECT id FROM u168183796_qainstulearn.webinars ORDER BY RAND() LIMIT 1) w1\n" +
-            "JOIN (SELECT id FROM u168183796_qainstulearn.support_departments ORDER BY RAND() LIMIT 1) sd1\n" +
+            "FROM (SELECT id FROM u201212290_qainstulearn.users ORDER BY RAND() LIMIT 1) u1\n" +
+            "JOIN (SELECT id FROM u201212290_qainstulearn.webinars ORDER BY RAND() LIMIT 1) w1\n" +
+            "JOIN (SELECT id FROM u201212290_qainstulearn.support_departments ORDER BY RAND() LIMIT 1) sd1\n" +
             "\n" +
             "UNION ALL\n" +
             "\n" +
@@ -75,9 +75,9 @@ public class Manage {
             "    (SELECT word FROM (SELECT '!' AS word UNION SELECT '.' UNION SELECT '!!' UNION SELECT '...') AS words ORDER BY RAND() LIMIT 1)\n" +
             "  ) AS title,\n" +
             "   UNIX_TIMESTAMP(),  UNIX_TIMESTAMP()\n" +
-            "FROM (SELECT id FROM u168183796_qainstulearn.users ORDER BY RAND() LIMIT 1) u2\n" +
-            "JOIN (SELECT id FROM u168183796_qainstulearn.webinars ORDER BY RAND() LIMIT 1) w2\n" +
-            "JOIN (SELECT id FROM u168183796_qainstulearn.support_departments ORDER BY RAND() LIMIT 1) sd2;";
+            "FROM (SELECT id FROM u201212290_qainstulearn.users ORDER BY RAND() LIMIT 1) u2\n" +
+            "JOIN (SELECT id FROM u201212290_qainstulearn.webinars ORDER BY RAND() LIMIT 1) w2\n" +
+            "JOIN (SELECT id FROM u201212290_qainstulearn.support_departments ORDER BY RAND() LIMIT 1) sd2;";
 
     private String us08_unixtime_date_validate = "select id from webinars Where start_date=UNIX_TIMESTAMP('2024-10-10 14:30:00');";
 
