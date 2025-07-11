@@ -33,6 +33,53 @@ public class Coupons_Stepdefinitions {
 
     //*********************************************** GET METHODS **********************************************
 
+    @Given("Api kullanicisi GET request gonderir ve donen responsei da kaydeder")
+    public void api_kullanicisi_get_request_gonderir_ve_donen_responsei_da_kaydeder() {
+        response = given()
+                .spec(HooksAPI.spec)
+                .when()
+                .get(API_Methods.fullPath);
+        response.prettyPrint();
+    }
+
+    @Given("Api kullanicisi {string} tokeniyla base urli olusturur")
+    public void api_kullanicisi_tokeniyla_base_urli_olusturur(String userType) {
+        HooksAPI.setUpApi(userType);
+    }
+
+    @Given("Api kullanicisi response bodydeki {string} bilgisinin {string} oldugunu dogrular.")
+    public void api_kullanicisi_response_bodydeki_bilgisinin_oldugunu_dogrular(String key, String value) {
+        response.then().assertThat().body(key,equalTo(value));
+    }
+
+    @Given("Api kullanicisi {string} ile path parametrelerini olusturur.")
+    public void api_kullanicisi_ile_path_parametrelerini_olusturur(String pathParam) {
+        API_Methods.pathParam(pathParam);
+    }
+
+    @Given("Api kullanicisi status codeunun {int} oldugunu dogrular")
+    public void api_kullanicisi_status_codeunun_oldugunu_dogrular(Integer code) {
+        response.then()
+                .assertThat()
+                .statusCode(code);
+    }
+
+    @Given("Api kullanıcısı POST request gönderir ve de dönen response’ı kaydeder")
+    public void api_kullanıcısı_post_request_gönderir_ve_de_dönen_response_ı_kaydeder() {
+
+        response =given()
+                .spec(HooksAPI.spec)
+                .contentType(ContentType.JSON)
+                .body(payloadBody)
+                .when()
+                .post(API_Methods.fullPath);
+        response.prettyPrint();
+    }
+
+    //*******************************
+
+
+
     @Given("Api kullanicisi response bodydeki {int} indexe sahip olan dataların {int}, {string}, {string}, {string}, {string}, {int}, {int}, {int}, {int} içeriklerini doğrular")
     public void api_kullanicisi_response_bodydeki_indexe_sahip_olan_dataların_içeriklerini_doğrular(int dataIndex, int creator_id, String title, String discount_type, String source, String code, int percent, int amount, int max_amount, int minimum_order) {
         response = given()
