@@ -6,7 +6,7 @@
   </component>
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseAssistantManager">
@@ -24,7 +24,9 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="8415617a-2a31-49eb-8dd2-25e4bac8d9e0">
-      <console name="Instulearn_Database" type="STANDARD" schema="u201212290_qainstulearn" session="Main"><![CDATA[INSERT INTO failed_jobs (uuid,connection,queue,payload,exception) VALUES ('deneme_mySQL_uuid_1','connection_deneme1','queue_mySQL1','payload_mySQL1','exception_mySQL1'),('deneme_mySQL_uuid_2','connection_deneme2','queue_mySQL2','payload_mySQL2','exception_mySQL2'),('deneme_mySQL_uuid_3','connection_deneme3','queue_mySQL3','payload_mySQL3','exception_mySQL3'),('deneme_mySQL_uuid_4','connection_deneme4','queue_mySQL4','payload_mySQL4','exception_mySQL4'),('deneme_mySQL_uuid_5','connection_deneme5','queue_mySQL5','payload_mySQL5','exception_mySQL5');]]></console>
+      <console name="Instulearn_Database" type="STANDARD" schema="u201212290_qainstulearn" session="Main"><![CDATA[SELECT * FROM users;
+SELECT distinct status FROM users;
+SELECT distinct ban FROM users;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -35,6 +37,9 @@
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
     <connection id="8415617a-2a31-49eb-8dd2-25e4bac8d9e0" />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -48,7 +53,7 @@
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
-          <database-version value="9999.0" />
+          <database-version value="5.5" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
@@ -66,7 +71,7 @@
           <token-type value="" />
           <token-config-file value="" />
           <token-profile value="" />
-          <session-user value="" />
+          <session-user value="u201212290_qainstuser@178.233.116.191" />
         </database>
         <properties>
           <auto-commit value="false" />
