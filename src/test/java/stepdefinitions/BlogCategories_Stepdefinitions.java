@@ -3,6 +3,7 @@ package stepdefinitions;
 import config_Requirements.ConfigLoader;
 import hooks.HooksAPI;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -12,11 +13,11 @@ import utilities.API_Utilities.API_Methods;
 import utilities.API_Utilities.TestData;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertEquals;
 
 public class BlogCategories_Stepdefinitions {
 
@@ -51,31 +52,31 @@ public class BlogCategories_Stepdefinitions {
                 .assertThat()
                 .statusCode(code);}
 
-    @Given("Api kullanicisi response bodydeki {string} bilgisinin {string} oldugunu dogrular")
-    public void api_kullanicisi_response_bodydeki_bilgisinin_oldugunu_dogrular(String key, String value) {
+    @Given("Api kullanicisi response bodydekiii {string} bilgisinin {string} oldugunu dogrular")
+    public void api_kullanicisi_response_bodydekiii_bilgisinin_oldugunu_dogrular(String key, String value) {
         jsonPath = response.jsonPath();
         String actualValue = jsonPath.getString(key);
-        Assert.assertEquals(value, actualValue);}
+        assertEquals(value, actualValue);}
 
     @Given("Api kullanicisi response bodydeki dataların  {string}, {string}, {int},{string},{string}, {int} {int} içeriklerini doğrular.")
     public void api_kullanicisi_response_bodydeki_datalarin_iceriğini_dogrular(String pageTitle, String blogCategories,
                                                                                int id, String title, String slug,
                                                                                int blog_count, int dataIndex) {
         jsonPath = response.jsonPath();
-        Assert.assertEquals(pageTitle, jsonPath.getString("data.pageTitle"));
-        Assert.assertEquals(id, (int) jsonPath.getInt("data.blogCategories[" + dataIndex + "].id"));
-        Assert.assertEquals(title, jsonPath.getString("data.blogCategories[" + dataIndex + "].title"));
-        Assert.assertEquals(slug, jsonPath.getString("data.blogCategories[" + dataIndex + "].slug"));
-        Assert.assertEquals(blog_count, (int) jsonPath.getInt("data.blogCategories[" + dataIndex + "].blog_count"));
+        assertEquals(pageTitle, jsonPath.getString("data.pageTitle"));
+        assertEquals(id, (int) jsonPath.getInt("data.blogCategories[" + dataIndex + "].id"));
+        assertEquals(title, jsonPath.getString("data.blogCategories[" + dataIndex + "].title"));
+        assertEquals(slug, jsonPath.getString("data.blogCategories[" + dataIndex + "].slug"));
+        assertEquals(blog_count, (int) jsonPath.getInt("data.blogCategories[" + dataIndex + "].blog_count"));
     }
 
     @Given("Api kullanicisi response bodydeki dataların {int}, {string}, {string} içeriklerini doğrular")
     public void api_kullanicisi_response_bodydeki_dataların_içeriklerini_doğrular(int id, String title, String slug) {
 
         jsonPath = response.jsonPath();
-        Assert.assertEquals(id, jsonPath.getInt("data.id"));
-        Assert.assertEquals(title, jsonPath.getString("data.title"));
-        Assert.assertEquals(slug, jsonPath.getString("data.slug"));}
+        assertEquals(id, jsonPath.getInt("data.id"));
+        assertEquals(title, jsonPath.getString("data.title"));
+        assertEquals(slug, jsonPath.getString("data.slug"));}
 
     @Given("Api kullanicisi GET request gonderir, donen responsei kaydeder, status codeun {int} ve {string} bilgisinin {string} oldugunu dogrular")
     public void api_kullanicisi_get_request_gonderir_donen_responsei_kaydeder_status_codeun_ve_bilgisinin_oldugunu_dogrular(int code, String key, String expectedValue) {
@@ -89,7 +90,7 @@ public class BlogCategories_Stepdefinitions {
                 .statusCode(code);
 
         jsonPath = response.jsonPath();
-        Assert.assertEquals(expectedValue, jsonPath.getString(key));}
+        assertEquals(expectedValue, jsonPath.getString(key));}
 
     @Given("Api kullanıcısı {string} token ile base urli oluşturur")
     public void api_kullanıcısı_token_ile_base_urli_oluşturur(String userType1) {
@@ -101,7 +102,7 @@ public class BlogCategories_Stepdefinitions {
 
     @Given("Api kullanıcısı addBlogCategory endpoint’ine gönderilmek üzere geçerli bir post request body hazırlar")
     public void api_kullanıcısı_add_blog_category_endpoint_ine_gönderilmek_üzere_geçerli_bir_post_request_body_hazırlar() {
-        requestBody.put("title", "NewTitle");}
+        requestBody.put("title", "NewTitle1fff");}
 
     @Given("Api kullanıcısı POST request gönderir ve dönen response’ı kaydeder")
     public void api_kullanıcısı_post_request_gönderir_ve_dönen_response_ı_kaydeder() {
@@ -119,11 +120,6 @@ public class BlogCategories_Stepdefinitions {
         response.then().statusCode(code);
     }
 
-    @Given("Api kullanıcısı response bodydeki {string} bilgisinin {string} olduğunu doğrular")
-    public void api_kullanıcısı_response_body_deki_bilgisinin_olduğunu_doğrular(String key, String expectedValue) {
-        jsonPath = response.jsonPath();
-        String actualValue = jsonPath.getString(key);
-        Assert.assertEquals(expectedValue, actualValue);}
 
     @Given("Api kullanıcısı title içermeyen bir post request body hazırlar")
     public void api_kullanıcısı_title_içermeyen_bir_post_request_body_hazırlar() {
@@ -191,7 +187,14 @@ public class BlogCategories_Stepdefinitions {
         hashMapBody = response.as(HashMap.class);
         String dataKey = (String) hashMapBody.get(responseKey);
         String endpointKey = String.valueOf(API_Methods.id);
-        Assert.assertEquals(dataKey, endpointKey);
+        assertEquals(dataKey, endpointKey);
+    }
+
+    @Then("Api kullanıcısı response bodydekiii {string} bilgisinin {string} olduğunu doğrular")
+    public void api_kullanicisi_response_bodydeki_bilginin_dogru_oldugunu_dogrular(String key, String expectedValue) {
+        String actualValue = response.jsonPath().getString(key);
+        System.out.println("Actual Value for '" + key + "': " + actualValue);
+        assertEquals(expectedValue, actualValue);
     }
     }
 

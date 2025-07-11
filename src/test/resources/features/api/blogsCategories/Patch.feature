@@ -8,11 +8,11 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı updateBlogCategory endpoint’ine gönderilmek üzere bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 200 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "success" olduğunu doğrular
-    * Api kullanıcısı response body’deki "Message" bilgisinin "Successfully Updated." olduğunu doğrular
+    * Api kullanıcısı response bodydekiii "remark" bilgisinin "success" olduğunu doğrular
+    * Api kullanıcısı response bodydekiii "Message" bilgisinin "Successfully Updated." olduğunu doğrular
     Examples:
       | id |
-      | 116|
+      | 130|
 
   Scenario Outline: Geçerli authorization ve geçerli id ile boş veri gönderildiğinde status 203 ve “There is no information to update.” mesajı dönmeli.
     * Api kullanıcısı "admin" token ile base urli oluşturur
@@ -20,8 +20,8 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı boş bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 203 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "failed" olduğunu doğrular
-    * Api kullanıcısı response body’deki "message" bilgisinin "There is no information to update." olduğunu doğrular
+    * Api kullanıcısı response bodydekiii "remark" bilgisinin "failed" olduğunu doğrular
+    * Api kullanıcısı response bodydekiii "message" bilgisinin "There is no information to update." olduğunu doğrular
     Examples:
       | id |
       |115 |
@@ -32,8 +32,8 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı updateBlogCategory endpoint’ine gönderilmek üzere bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 203 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "failed" olduğunu doğrular
-    * Api kullanıcısı response body’deki "data.message" bilgisinin "There is not category for this id." olduğunu doğrular
+    * Api kullanıcısı response bodydekiii "remark" bilgisinin "failed" olduğunu doğrular
+    * Api kullanıcısı response bodydekiii "data.message" bilgisinin "There is not category for this id." olduğunu doğrular
     Examples:
       | id |
       |4546|
@@ -44,8 +44,8 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı updateBlogCategory endpoint’ine gönderilmek üzere bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 203 olduğunu doğrular
-    * Api kullanıcısı response body’deki "remark" bilgisinin "failed" olduğunu doğrular
-    * Api kullanıcısı response body’deki "data.message" bilgisinin "No id" olduğunu doğrular
+    * Api kullanıcısı response bodydekiii "remark" bilgisinin "failed" olduğunu doğrular
+    * Api kullanıcısı response bodydekiii "data.message" bilgisinin "No id" olduğunu doğrular
 
   Scenario Outline: Geçersiz (invalid) token ile, doğru id ve geçerli title içeren PATCH request gönderildiğinde, status code 401 ve message "Unauthenticated." olmalı.
     * Api kullanıcısı "invalid" token ile base urli oluşturur
@@ -53,7 +53,7 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
     * Api kullanıcısı updateBlogCategory endpoint’ine gönderilmek üzere bir patch request body hazırlar
     * Api kullanıcısı PATCH request gönderir ve dönen response’ı kaydeder
     * Api kullanıcısı status code’un 401 olduğunu doğrular
-    * Api kullanıcısı response body’deki "message" bilgisinin "Unauthenticated." olduğunu doğrular
+    * Api kullanıcısı response bodydekiii "message" bilgisinin "Unauthenticated." olduğunu doğrular
     Examples:
       | id |
       | 116 |
@@ -66,4 +66,4 @@ Feature: Bir yönetici olarak, belirtilen id numarasına sahip blog kategorisini
 
     Examples:
       | id  |
-      | 116|
+      | 130 |
